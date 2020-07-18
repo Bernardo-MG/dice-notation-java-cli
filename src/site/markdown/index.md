@@ -1,3 +1,5 @@
-# picocli Example
+# Dice Notation Tools CLI
 
-Example runnable JAR which uses picocli.
+CLI for running the [Dice Notation Tools][dice-notation-tools] through line command.
+
+[dice-notation-tools]: https://github.com/Bernardo-MG/dice-notation-java

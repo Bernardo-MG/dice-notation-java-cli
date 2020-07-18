@@ -1,18 +1,6 @@
-# picocli Example
+# Dice Notation Tools CLI
 
-Example runnable JAR which uses a CLI based on picocli.
-
-To test the project first package it:
-
-```
-mvn clean package
-```
-
-Afterwards the jar will be in the target folder. To print the help just run as this:
-
-```
-java -jar target/executable.jar -h
-```
+CLI for running the [Dice Notation Tools][dice-notation-tools] through line command.
 
 [![Release docs](https://img.shields.io/badge/docs-release-blue.svg)][site-release]
 [![Development docs](https://img.shields.io/badge/docs-develop-blue.svg)][site-develop]
@@ -65,10 +53,12 @@ If you wish to fork or modify the code, visit the [GitHub project page][scm], wh
 
 The project has been released under the [MIT License][license].
 
-[issues]: https://github.com/bernardo-mg/picocli-example/issues
-[javadoc-develop]: http://docs.bernardomg.com/development/maven/picocli-example/apidocs
-[javadoc-release]: http://docs.bernardomg.com/maven/picocli-example/apidocs
+[issues]: https://github.com/bernardo-mg/dice-notation-java-cli/issues
+[javadoc-develop]: http://docs.bernardomg.com/development/maven/dice-notation-java-cli/apidocs
+[javadoc-release]: http://docs.bernardomg.com/maven/dice-notation-java-cli/apidocs
 [license]: https://www.opensource.org/licenses/mit-license.php
-[scm]: https://github.com/bernardo-mg/picocli-example
-[site-develop]: http://docs.bernardomg.com/development/maven/picocli-example
-[site-release]: http://docs.bernardomg.com/maven/picocli-example
+[scm]: https://github.com/bernardo-mg/dice-notation-java-cli
+[site-develop]: http://docs.bernardomg.com/development/maven/dice-notation-java-cli
+[site-release]: http://docs.bernardomg.com/maven/dice-notation-java-cli
+
+[dice-notation-tools]: https://github.com/Bernardo-MG/dice-notation-java
