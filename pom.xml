@@ -181,10 +181,11 @@
       <picocli.version>4.4.0</picocli.version>
       <log4j.version>2.13.3</log4j.version>
       <slf4j.version>1.7.30</slf4j.version>
+      <spring.boot.version>2.3.1.RELEASE</spring.boot.version>
       <!-- ============================================== -->
       <!-- ============== PLUGINS VERSIONS ============== -->
       <!-- ============================================== -->
-      <plugin.shade.version>3.2.4</plugin.shade.version>
+      <plugin.spring.boot.version>${spring.boot.version}</plugin.spring.boot.version>
       <!-- ============================================== -->
       <!-- ================= MAVEN SITE ================= -->
       <!-- ============================================== -->
@@ -283,13 +284,14 @@
 
    <build>
       <defaultGoal>clean package install</defaultGoal>
+      <finalName>${exec.file.name}</finalName>
       <pluginManagement>
          <plugins>
             <plugin>
-               <!-- Shade -->
-               <groupId>org.apache.maven.plugins</groupId>
-               <artifactId>maven-shade-plugin</artifactId>
-               <version>${plugin.shade.version}</version>
+               <!-- Spring Boot -->
+               <groupId>org.springframework.boot</groupId>
+               <artifactId>spring-boot-maven-plugin</artifactId>
+               <version>${plugin.spring.boot.version}</version>
             </plugin>
          </plugins>
       </pluginManagement>
@@ -337,37 +339,6 @@
             </configuration>
          </plugin>
          <plugin>
-            <!-- Shade -->
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-shade-plugin</artifactId>
-            <executions>
-               <execution>
-                  <goals>
-                     <goal>shade</goal>
-                  </goals>
-                  <configuration>
-                     <finalName>${exec.file.name}</finalName>
-                     <shadedArtifactAttached>true</shadedArtifactAttached>
-                     <transformers>
-                        <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                           <mainClass>${main.path}</mainClass>
-                        </transformer>
-                     </transformers>
-                     <filters>
-                        <filter>
-                           <artifact>*:*</artifact>
-                           <excludes>
-                              <exclude>META-INF/*.SF</exclude>
-                              <exclude>META-INF/*.DSA</exclude>
-                              <exclude>META-INF/*.RSA</exclude>
-                           </excludes>
-                        </filter>
-                     </filters>
-                  </configuration>
-               </execution>
-            </executions>
-         </plugin>
-         <plugin>
             <!-- Site -->
             <!-- Generates the Maven Site -->
             <groupId>org.apache.maven.plugins</groupId>
@@ -380,6 +351,40 @@
                   <version>${site.skin.version}</version>
                </dependency>
             </dependencies>
+         </plugin>
+         <plugin>
+            <!-- Spring Boot -->
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <executions>
+               <execution>
+                  <goals>
+                     <goal>repackage</goal>
+                  </goals>
+                  <configuration>
+                     <classifier>spring-boot</classifier>
+                     <mainClass>${main.path}</mainClass>
+                  </configuration>
+               </execution>
+            </executions>
+         </plugin>
+         <plugin>
+            <!-- Antrun -->
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <executions>
+               <execution>
+                  <phase>package</phase>
+                  <configuration>
+                     <target>
+                        <copy file="${project.build.directory}/${project.build.finalName}-spring-boot.jar" tofile="${project.build.directory}/${exec.file.name}.jar" />
+                     </target>
+                  </configuration>
+                  <goals>
+                     <goal>run</goal>
+                  </goals>
+               </execution>
+            </executions>
          </plugin>
       </plugins>
    </build>
