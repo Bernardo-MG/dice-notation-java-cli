@@ -11,7 +11,7 @@ mvn clean package
 Afterwards a runnable jar will be in the target folder. It can be run like this:
 
 ```
-java -jar target/dice.jar 1d6
+java -jar target/dice.jar roll 1d6
 ```
 
 To show other commands:

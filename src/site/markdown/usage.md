@@ -1,9 +1,9 @@
 # Usage
 
-Just give an expression to the application and it will be rolled:
+## Rolling Expressions
 
 ```
-java -jar dice.jar 1d6
+java -jar dice.jar roll 1d6
 ```
 
 The result will be printed on console:
@@ -15,7 +15,7 @@ Total roll: 14
 ```
 
 
-## Rolls History
+### Rolls History
 
 To get all the rolls:
 
@@ -50,3 +50,19 @@ Rolled 1d12 getting values [7] for a total of 7
 ```
 
 Both options can be combined if wished
+
+## Gathering Dice
+
+```
+java -jar dice.jar gather gather 3d6+2+1d12
+```
+
+The result will be printed on console:
+
+```
+------------
+Found 2 dice sets
+------------
+3d6, 1d12
+------------
+```
