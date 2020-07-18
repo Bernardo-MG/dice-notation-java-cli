@@ -40,7 +40,7 @@ import picocli.CommandLine.Parameters;
  * @author Bernardo Martínez Garrido
  *
  */
-@Command(name = "roll", description = "Rolls a dice notation expression",
+@Command(name = "roll", description = "Rolls an expression",
         mixinStandardHelpOptions = true)
 public final class DiceRollCommand implements Runnable {
 
