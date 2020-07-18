@@ -65,6 +65,7 @@ public final class DiceRollCommand implements Runnable {
         totalRoll = rolls.getTotalRoll();
 
         LOGGER.debug("Total roll {}", totalRoll);
+        LOGGER.debug("History: ", rolls.toString());
 
         // Prints the final result
         System.out.println();
@@ -75,6 +76,7 @@ public final class DiceRollCommand implements Runnable {
             System.out.println("------------");
             System.out.println("Roll history: " + rolls.toString());
         }
+
         if (historyDetailed) {
             System.out.println("------------");
             System.out.println("Detailed roll history");
