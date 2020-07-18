@@ -1,10 +1,14 @@
 
 package com.bernardomg.tabletop.dice.cli.command;
 
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bernardomg.tabletop.dice.history.RollHistory;
+import com.bernardomg.tabletop.dice.history.RollResult;
 import com.bernardomg.tabletop.dice.interpreter.DiceInterpreter;
 import com.bernardomg.tabletop.dice.interpreter.DiceRoller;
 import com.bernardomg.tabletop.dice.notation.DiceNotationExpression;
@@ -43,6 +47,8 @@ public final class DiceRollCommand implements Runnable {
         final DiceNotationExpression parsed;
         final DiceInterpreter<RollHistory> roller;
         final RollHistory rolls;
+        final Integer totalRoll;
+        String valuesText;
 
         LOGGER.debug("Running expression {}", expression);
 
@@ -54,8 +60,23 @@ public final class DiceRollCommand implements Runnable {
 
         rolls = roller.transform(parsed);
 
+        totalRoll = rolls.getTotalRoll();
+
+        LOGGER.debug("Total roll {}", totalRoll);
+
         // Prints the final result
-        System.out.println(rolls.getTotalRoll());
+        System.out.println("------------");
+        System.out.println("Total roll: " + totalRoll);
+
+        System.out.println("------------");
+        System.out.println("ROLL HISTORY");
+        for (final RollResult result : rolls.getRollResults()) {
+            valuesText = StreamSupport
+                    .stream(result.getAllRolls().spliterator(), false)
+                    .map(Object::toString).collect(Collectors.joining(", "));
+            System.out.print("Rolled values [" + valuesText
+                    + "] for a total of " + result.getTotalRoll());
+        }
     }
 
 }
