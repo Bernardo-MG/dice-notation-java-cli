@@ -16,6 +16,7 @@ import com.bernardomg.tabletop.dice.parser.DefaultDiceParser;
 import com.bernardomg.tabletop.dice.parser.DiceParser;
 
 import picocli.CommandLine.Command;
+import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
 /**
@@ -30,12 +31,15 @@ public final class DiceRollCommand implements Runnable {
     /**
      * Logger.
      */
-    private static final Logger LOGGER = LoggerFactory
+    private static final Logger LOGGER  = LoggerFactory
             .getLogger(DiceRollCommand.class);
 
     @Parameters(index = "0", description = "The expression to roll",
             paramLabel = "EXP")
     private String              expression;
+
+    @Option(names = "-history")
+    private Boolean             history = false;
 
     public DiceRollCommand() {
         super();
@@ -65,18 +69,27 @@ public final class DiceRollCommand implements Runnable {
         LOGGER.debug("Total roll {}", totalRoll);
 
         // Prints the final result
+        System.out.println();
         System.out.println("------------");
         System.out.println("Total roll: " + totalRoll);
 
-        System.out.println("------------");
-        System.out.println("ROLL HISTORY");
-        for (final RollResult result : rolls.getRollResults()) {
-            valuesText = StreamSupport
-                    .stream(result.getAllRolls().spliterator(), false)
-                    .map(Object::toString).collect(Collectors.joining(", "));
-            System.out.print("Rolled values [" + valuesText
-                    + "] for a total of " + result.getTotalRoll());
+        if (history) {
+            System.out.println("------------");
+            System.out.println("ROLL HISTORY");
+            for (final RollResult result : rolls.getRollResults()) {
+                // Values are grouped into a text
+                valuesText = StreamSupport
+                        .stream(result.getAllRolls().spliterator(), false)
+                        .map(Object::toString)
+                        .collect(Collectors.joining(", "));
+
+                System.out.println("Rolled values [" + valuesText
+                        + "] for a total of " + result.getTotalRoll());
+            }
         }
+
+        System.out.println("------------");
+        System.out.println();
     }
 
 }
