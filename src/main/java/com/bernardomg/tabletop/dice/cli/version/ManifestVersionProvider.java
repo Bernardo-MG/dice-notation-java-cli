@@ -1,5 +1,5 @@
 
-package com.bernardomg.example.picocli.version;
+package com.bernardomg.tabletop.dice.cli.version;
 
 import java.io.IOException;
 import java.net.URL;

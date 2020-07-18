@@ -25,4 +25,4 @@
  * The main executable.
  */
 
-package com.bernardomg.example.picocli;
+package com.bernardomg.tabletop.dice.cli;
