@@ -47,19 +47,21 @@ public final class DiceRollCommand implements Runnable {
     /**
      * Logger.
      */
-    private static final Logger LOGGER          = LoggerFactory
+    private static final Logger LOGGER = LoggerFactory
             .getLogger(DiceRollCommand.class);
 
     @Parameters(index = "0", description = "The expression to roll",
             paramLabel = "EXP")
     private String              expression;
 
-    @Option(names = "-history", description = "Prints the roll history")
-    private Boolean             history         = false;
+    @Option(names = "-history", description = "Prints the roll history",
+            defaultValue = "false")
+    private Boolean             history;
 
     @Option(names = "-fullHistory",
-            description = "Prints a detailed roll history")
-    private Boolean             historyDetailed = false;
+            description = "Prints a detailed roll history",
+            defaultValue = "false")
+    private Boolean             historyDetailed;
 
     public DiceRollCommand() {
         super();
