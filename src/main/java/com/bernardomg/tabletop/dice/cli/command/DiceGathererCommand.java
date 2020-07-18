@@ -76,7 +76,7 @@ public final class DiceGathererCommand implements Runnable {
         // Prints the final result
         System.out.println();
         System.out.println("------------");
-        System.out.println("Found " + Iterables.size(diceSets) + " dice sets");
+        System.out.printf("Found %d dice sets%n", Iterables.size(diceSets));
         diceText = StreamSupport.stream(diceSets.spliterator(), false)
                 .map(this::getText).collect(Collectors.joining(", "));
         if (!diceText.isEmpty()) {
@@ -88,7 +88,7 @@ public final class DiceGathererCommand implements Runnable {
     }
 
     private final String getText(final Dice dice) {
-        return dice.getQuantity() + "d" + dice.getSides();
+        return String.format("%dd%d", dice.getQuantity(), dice.getSides());
     }
 
 }

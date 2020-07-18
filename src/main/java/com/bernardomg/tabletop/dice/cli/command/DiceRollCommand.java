@@ -85,16 +85,16 @@ public final class DiceRollCommand implements Runnable {
         totalRoll = rolls.getTotalRoll();
 
         LOGGER.debug("Total roll {}", totalRoll);
-        LOGGER.debug("History: ", rolls.toString());
+        LOGGER.debug("History: {}", rolls.toString());
 
         // Prints the final result
         System.out.println();
         System.out.println("------------");
-        System.out.println("Total roll: " + totalRoll);
+        System.out.printf("Total roll: %d%n", totalRoll);
 
         if (history) {
             System.out.println("------------");
-            System.out.println("Roll history: " + rolls.toString());
+            System.out.printf("Roll history: %s%n", rolls.toString());
         }
 
         if (historyDetailed) {
@@ -107,10 +107,11 @@ public final class DiceRollCommand implements Runnable {
                         .map(Object::toString)
                         .collect(Collectors.joining(", "));
 
-                System.out.println("Rolled " + result.getDice().getQuantity()
-                        + "d" + result.getDice().getSides()
-                        + " getting values [" + valuesText + "] for a total of "
-                        + result.getTotalRoll());
+                System.out.printf(
+                        "Rolled %dd%d getting values [%s] for a total roll of %d%n",
+                        result.getDice().getQuantity(),
+                        result.getDice().getSides(), valuesText,
+                        result.getTotalRoll());
             }
         }
 
