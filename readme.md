@@ -1,4 +1,4 @@
-# Dice Notation Tools CLI
+# Dice Notation Tools for Java CLI
 
 CLI for running the [Dice Notation Tools][dice-notation-tools] through line command.
 
