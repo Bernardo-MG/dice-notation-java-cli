@@ -16,6 +16,8 @@
 
 package com.bernardomg.tabletop.dice.cli.command;
 
+import com.bernardomg.tabletop.dice.cli.version.ManifestVersionProvider;
+
 import picocli.CommandLine.Command;
 
 /**
@@ -27,7 +29,8 @@ import picocli.CommandLine.Command;
  */
 @Command(description = "Handles roll operations",
         subcommands = { DiceRollCommand.class, DiceGathererCommand.class },
-        mixinStandardHelpOptions = true)
+        mixinStandardHelpOptions = true,
+        versionProvider = ManifestVersionProvider.class)
 public class DiceMenu {
 
 }
