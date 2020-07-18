@@ -11,13 +11,13 @@ mvn clean package
 Afterwards a runnable jar will be in the target folder. It can be run like this:
 
 ```
-java -jar target/executable.jar 1d6
+java -jar target/dice.jar 1d6
 ```
 
 To show other commands:
 
 ```
-java -jar target/executable.jar -h
+java -jar target/dice.jar -h
 ```
 
 [dice-notation-tools]: https://github.com/Bernardo-MG/dice-notation-java

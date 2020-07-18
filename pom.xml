@@ -193,7 +193,7 @@
       <!-- ================= EXECUTABLE ================= -->
       <!-- ============================================== -->
       <main.path>com.bernardomg.tabletop.dice.cli.Main</main.path>
-      <exec.file.name>executable</exec.file.name>
+      <exec.file.name>dice</exec.file.name>
    </properties>
 
    <!-- ********************************************** -->
