@@ -38,10 +38,11 @@ public final class DiceRollCommand implements Runnable {
             paramLabel = "EXP")
     private String              expression;
 
-    @Option(names = "-history")
+    @Option(names = "-history", description = "Prints the roll history")
     private Boolean             history         = false;
 
-    @Option(names = "-detailed")
+    @Option(names = "-fullHistory",
+            description = "Prints a detailed roll history")
     private Boolean             historyDetailed = false;
 
     public DiceRollCommand() {

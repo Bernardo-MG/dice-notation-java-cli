@@ -14,4 +14,10 @@ Afterwards a runnable jar will be in the target folder. It can be run like this:
 java -jar target/executable.jar 1d6
 ```
 
+To show other commands:
+
+```
+java -jar target/executable.jar -h
+```
+
 [dice-notation-tools]: https://github.com/Bernardo-MG/dice-notation-java
