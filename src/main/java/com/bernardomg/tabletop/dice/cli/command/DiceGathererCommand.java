@@ -23,6 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bernardomg.tabletop.dice.Dice;
+import com.bernardomg.tabletop.dice.cli.version.ManifestVersionProvider;
 import com.bernardomg.tabletop.dice.interpreter.DiceGatherer;
 import com.bernardomg.tabletop.dice.interpreter.DiceInterpreter;
 import com.bernardomg.tabletop.dice.parser.DefaultDiceParser;
@@ -40,7 +41,8 @@ import picocli.CommandLine.Parameters;
  *
  */
 @Command(name = "gather", description = "Gathers dice from an expression",
-        mixinStandardHelpOptions = true)
+        mixinStandardHelpOptions = true,
+        versionProvider = ManifestVersionProvider.class)
 public final class DiceGathererCommand implements Runnable {
 
     /**

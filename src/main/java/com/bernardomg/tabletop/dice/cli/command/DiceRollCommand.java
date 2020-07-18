@@ -22,6 +22,7 @@ import java.util.stream.StreamSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.bernardomg.tabletop.dice.cli.version.ManifestVersionProvider;
 import com.bernardomg.tabletop.dice.history.RollHistory;
 import com.bernardomg.tabletop.dice.history.RollResult;
 import com.bernardomg.tabletop.dice.interpreter.DiceInterpreter;
@@ -41,7 +42,8 @@ import picocli.CommandLine.Parameters;
  *
  */
 @Command(name = "roll", description = "Rolls an expression",
-        mixinStandardHelpOptions = true)
+        mixinStandardHelpOptions = true,
+        versionProvider = ManifestVersionProvider.class)
 public final class DiceRollCommand implements Runnable {
 
     /**
