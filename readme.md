@@ -2,6 +2,18 @@
 
 CLI for running the [Dice Notation Tools][dice-notation-tools] through line command.
 
+To run the project first package it:
+
+```
+mvn clean package
+```
+
+Afterwards a runnable jar will be in the target folder. It can be run like this:
+
+```
+java -jar target/executable.jar 1d6
+```
+
 [![Release docs](https://img.shields.io/badge/docs-release-blue.svg)][site-release]
 [![Development docs](https://img.shields.io/badge/docs-develop-blue.svg)][site-develop]
 
