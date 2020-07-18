@@ -20,7 +20,7 @@
 
    <groupId>com.bernardomg.tabletop</groupId>
    <artifactId>dice-cli</artifactId>
-   <version>1.0.0-SNAPSHOT</version>
+   <version>1.0.0</version>
    <packaging>jar</packaging>
 
    <name>Dice Notation Tools CLI</name>
@@ -170,10 +170,11 @@
       <!-- ============================================== -->
       <!-- =============== MANIFEST DATA ================ -->
       <!-- ============================================== -->
-      <manifest.name>com/bernardomg/example/execjar</manifest.name>
+      <manifest.name>com/bernardomg/dice/cli</manifest.name>
       <!-- ============================================== -->
       <!-- =========== DEPENDENCIES VERSIONS ============ -->
       <!-- ============================================== -->
+      <dice.version>2.0.2</dice.version>
       <guava.version>29.0-jre</guava.version>
       <junit.jupiter.version>5.6.2</junit.jupiter.version>
       <mockito.version>3.3.3</mockito.version>
@@ -191,7 +192,7 @@
       <!-- ============================================== -->
       <!-- ================= EXECUTABLE ================= -->
       <!-- ============================================== -->
-      <main.path>com.bernardomg.example.picocli.Main</main.path>
+      <main.path>com.bernardomg.tabletop.dice.cli.Main</main.path>
       <exec.file.name>executable</exec.file.name>
    </properties>
 
@@ -220,9 +221,16 @@
          <version>${guava.version}</version>
       </dependency>
       <dependency>
+         <!-- picocli -->
          <groupId>info.picocli</groupId>
          <artifactId>picocli</artifactId>
          <version>${picocli.version}</version>
+      </dependency>
+      <dependency>
+         <!-- Dice -->
+         <groupId>com.bernardomg.tabletop</groupId>
+         <artifactId>dice</artifactId>
+         <version>${dice.version}</version>
       </dependency>
       <!-- ============================================== -->
       <!-- ================== LOGGERS =================== -->

@@ -1,10 +1,10 @@
 
-package com.bernardomg.example.picocli;
+package com.bernardomg.tabletop.dice.cli;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.bernardomg.example.picocli.command.MenuCommand;
+import com.bernardomg.tabletop.dice.cli.command.DiceRollCommand;
 
 import picocli.CommandLine;
 
@@ -28,7 +28,7 @@ public class Main {
     public static void main(final String[] args) {
         final Integer exitCode;
 
-        exitCode = new CommandLine(new MenuCommand()).execute(args);
+        exitCode = new CommandLine(new DiceRollCommand()).execute(args);
 
         LOGGER.debug("Exited with code {}", exitCode);
 
