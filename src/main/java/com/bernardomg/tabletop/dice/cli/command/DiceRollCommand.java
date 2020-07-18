@@ -83,8 +83,10 @@ public final class DiceRollCommand implements Runnable {
                         .map(Object::toString)
                         .collect(Collectors.joining(", "));
 
-                System.out.println("Rolled values [" + valuesText
-                        + "] for a total of " + result.getTotalRoll());
+                System.out.println("Rolled " + result.getDice().getQuantity()
+                        + "d" + result.getDice().getSides()
+                        + " getting values [" + valuesText + "] for a total of "
+                        + result.getTotalRoll());
             }
         }
 

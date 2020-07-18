@@ -14,6 +14,12 @@ Afterwards a runnable jar will be in the target folder. It can be run like this:
 java -jar target/executable.jar 1d6
 ```
 
+To show all the values generated when rolling:
+
+```
+java -jar target/executable.jar 3d6 -history
+```
+
 [![Release docs](https://img.shields.io/badge/docs-release-blue.svg)][site-release]
 [![Development docs](https://img.shields.io/badge/docs-develop-blue.svg)][site-develop]
 
