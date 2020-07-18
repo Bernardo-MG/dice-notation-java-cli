@@ -11,7 +11,6 @@ import com.bernardomg.tabletop.dice.history.RollHistory;
 import com.bernardomg.tabletop.dice.history.RollResult;
 import com.bernardomg.tabletop.dice.interpreter.DiceInterpreter;
 import com.bernardomg.tabletop.dice.interpreter.DiceRoller;
-import com.bernardomg.tabletop.dice.notation.DiceNotationExpression;
 import com.bernardomg.tabletop.dice.parser.DefaultDiceParser;
 import com.bernardomg.tabletop.dice.parser.DiceParser;
 
@@ -31,7 +30,7 @@ public final class DiceRollCommand implements Runnable {
     /**
      * Logger.
      */
-    private static final Logger LOGGER  = LoggerFactory
+    private static final Logger LOGGER          = LoggerFactory
             .getLogger(DiceRollCommand.class);
 
     @Parameters(index = "0", description = "The expression to roll",
@@ -39,7 +38,10 @@ public final class DiceRollCommand implements Runnable {
     private String              expression;
 
     @Option(names = "-history")
-    private Boolean             history = false;
+    private Boolean             history         = false;
+
+    @Option(names = "-detailed")
+    private Boolean             historyDetailed = false;
 
     public DiceRollCommand() {
         super();
@@ -48,7 +50,6 @@ public final class DiceRollCommand implements Runnable {
     @Override
     public final void run() {
         final DiceParser parser;
-        final DiceNotationExpression parsed;
         final DiceInterpreter<RollHistory> roller;
         final RollHistory rolls;
         final Integer totalRoll;
@@ -57,12 +58,9 @@ public final class DiceRollCommand implements Runnable {
         LOGGER.debug("Running expression {}", expression);
 
         parser = new DefaultDiceParser();
-
-        parsed = parser.parse(expression);
-
         roller = new DiceRoller();
 
-        rolls = roller.transform(parsed);
+        rolls = parser.parse(expression, roller);
 
         totalRoll = rolls.getTotalRoll();
 
@@ -75,7 +73,11 @@ public final class DiceRollCommand implements Runnable {
 
         if (history) {
             System.out.println("------------");
-            System.out.println("ROLL HISTORY");
+            System.out.println("Roll history: " + rolls.toString());
+        }
+        if (historyDetailed) {
+            System.out.println("------------");
+            System.out.println("Detailed roll history");
             for (final RollResult result : rolls.getRollResults()) {
                 // Values are grouped into a text
                 valuesText = StreamSupport
