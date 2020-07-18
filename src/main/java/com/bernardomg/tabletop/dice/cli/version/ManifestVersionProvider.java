@@ -55,7 +55,8 @@ public class ManifestVersionProvider implements IVersionProvider {
 
     private boolean isApplicableManifest(final Manifest manifest) {
         final Attributes attributes = manifest.getMainAttributes();
-        return "picocli".equals(get(attributes, "Implementation-Title"));
+        return "Dice Notation Tools CLI"
+                .equals(get(attributes, "Implementation-Title"));
     }
 
     private static Object get(final Attributes attributes, final String key) {
