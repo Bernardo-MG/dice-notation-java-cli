@@ -284,7 +284,6 @@
 
    <build>
       <defaultGoal>clean package</defaultGoal>
-      <finalName>${exec.file.name}</finalName>
       <pluginManagement>
          <plugins>
             <plugin>
