@@ -10,5 +10,13 @@
                 First version.
             </action>
         </release>
+        <release version="1.1.0" date="2020-07-19" description="Improved CLI">
+            <action dev="bmg" type="add">
+                Added an option to gather dice from an expression.
+            </action>
+            <action dev="bmg" type="update">
+                Extended and improved CLI.
+            </action>
+        </release>
     </body>
 </document>

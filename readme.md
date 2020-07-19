@@ -1,4 +1,4 @@
-# Dice Notation Tools CLI
+# Dice Notation Tools for Java CLI
 
 CLI for running the [Dice Notation Tools][dice-notation-tools] through line command.
 
@@ -11,13 +11,13 @@ mvn clean package
 Afterwards a runnable jar will be in the target folder. It can be run like this:
 
 ```
-java -jar target/executable.jar 1d6
+java -jar target/dice.jar roll 1d6
 ```
 
 To show other commands:
 
 ```
-java -jar target/executable.jar -h
+java -jar target/dice.jar -h
 ```
 
 [![Release docs](https://img.shields.io/badge/docs-release-blue.svg)][site-release]

@@ -13,8 +13,24 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-/**
- * The main executable.
- */
 
-package com.bernardomg.tabletop.dice.cli;
+package com.bernardomg.tabletop.dice.cli.command;
+
+import com.bernardomg.tabletop.dice.cli.version.ManifestVersionProvider;
+
+import picocli.CommandLine.Command;
+
+/**
+ * Roll command. Receives an expression, rolls it and prints the result on
+ * screen.
+ * 
+ * @author Bernardo Martínez Garrido
+ *
+ */
+@Command(description = "Handles roll operations",
+        subcommands = { DiceRollCommand.class, DiceGathererCommand.class },
+        mixinStandardHelpOptions = true,
+        versionProvider = ManifestVersionProvider.class)
+public class DiceMenu {
+
+}

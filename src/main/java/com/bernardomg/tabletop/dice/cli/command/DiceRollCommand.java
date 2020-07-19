@@ -1,12 +1,29 @@
+/**
+ * Copyright 2020 the original author or authors
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ */
 
 package com.bernardomg.tabletop.dice.cli.command;
 
+import java.io.PrintWriter;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.bernardomg.tabletop.dice.cli.version.ManifestVersionProvider;
 import com.bernardomg.tabletop.dice.history.RollHistory;
 import com.bernardomg.tabletop.dice.history.RollResult;
 import com.bernardomg.tabletop.dice.interpreter.DiceInterpreter;
@@ -15,38 +32,55 @@ import com.bernardomg.tabletop.dice.parser.DefaultDiceParser;
 import com.bernardomg.tabletop.dice.parser.DiceParser;
 
 import picocli.CommandLine.Command;
+import picocli.CommandLine.Model.CommandSpec;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
+import picocli.CommandLine.Spec;
 
 /**
- * Print command. Received a text and prints it on screen.
+ * Roll command. Receives an expression, rolls it and prints the result on
+ * screen.
  * 
  * @author Bernardo Martínez Garrido
  *
  */
-@Command(name = "roll", description = "Rolls a dice notation expression",
-        mixinStandardHelpOptions = true)
+@Command(name = "roll", description = "Rolls an expression",
+        mixinStandardHelpOptions = true,
+        versionProvider = ManifestVersionProvider.class)
 public final class DiceRollCommand implements Runnable {
 
     /**
      * Logger.
      */
-    private static final Logger LOGGER          = LoggerFactory
+    private static final Logger LOGGER = LoggerFactory
             .getLogger(DiceRollCommand.class);
 
     @Parameters(index = "0", description = "The expression to roll",
             paramLabel = "EXP")
     private String              expression;
 
-    @Option(names = "-history", description = "Prints the roll history")
-    private Boolean             history         = false;
+    @Option(names = "-history", description = "Prints the roll history",
+            defaultValue = "false")
+    private Boolean             history;
 
     @Option(names = "-fullHistory",
-            description = "Prints a detailed roll history")
-    private Boolean             historyDetailed = false;
+            description = "Prints a detailed roll history",
+            defaultValue = "false")
+    private Boolean             historyDetailed;
+
+    @Spec
+    private CommandSpec         spec;
 
     public DiceRollCommand() {
         super();
+    }
+
+    public Boolean getHistory() {
+        return history;
+    }
+
+    public Boolean getHistoryDetailed() {
+        return historyDetailed;
     }
 
     @Override
@@ -55,6 +89,7 @@ public final class DiceRollCommand implements Runnable {
         final DiceInterpreter<RollHistory> roller;
         final RollHistory rolls;
         final Integer totalRoll;
+        final PrintWriter writer;
         String valuesText;
 
         LOGGER.debug("Running expression {}", expression);
@@ -67,21 +102,27 @@ public final class DiceRollCommand implements Runnable {
         totalRoll = rolls.getTotalRoll();
 
         LOGGER.debug("Total roll {}", totalRoll);
-        LOGGER.debug("History: ", rolls.toString());
+        LOGGER.debug("History: {}", rolls.toString());
+
+        writer = spec.commandLine().getOut();
 
         // Prints the final result
-        System.out.println();
-        System.out.println("------------");
-        System.out.println("Total roll: " + totalRoll);
+        writer.println();
+        writer.println("------------");
+        writer.printf("Total roll: %d%n", totalRoll);
 
         if (history) {
-            System.out.println("------------");
-            System.out.println("Roll history: " + rolls.toString());
+            LOGGER.debug("Printing roll history");
+
+            writer.println("------------");
+            writer.printf("Roll history: %s%n", rolls.toString());
         }
 
         if (historyDetailed) {
-            System.out.println("------------");
-            System.out.println("Detailed roll history");
+            LOGGER.debug("Printing detailed roll history");
+
+            writer.println("------------");
+            writer.println("Detailed roll history");
             for (final RollResult result : rolls.getRollResults()) {
                 // Values are grouped into a text
                 valuesText = StreamSupport
@@ -89,15 +130,16 @@ public final class DiceRollCommand implements Runnable {
                         .map(Object::toString)
                         .collect(Collectors.joining(", "));
 
-                System.out.println("Rolled " + result.getDice().getQuantity()
-                        + "d" + result.getDice().getSides()
-                        + " getting values [" + valuesText + "] for a total of "
-                        + result.getTotalRoll());
+                writer.printf(
+                        "Rolled %dd%d getting values [%s] for a total roll of %d%n",
+                        result.getDice().getQuantity(),
+                        result.getDice().getSides(), valuesText,
+                        result.getTotalRoll());
             }
         }
 
-        System.out.println("------------");
-        System.out.println();
+        writer.println("------------");
+        writer.println();
     }
 
 }
