@@ -283,7 +283,7 @@
    <!-- ********************************************** -->
 
    <build>
-      <defaultGoal>clean package install</defaultGoal>
+      <defaultGoal>clean package</defaultGoal>
       <finalName>${exec.file.name}</finalName>
       <pluginManagement>
          <plugins>
