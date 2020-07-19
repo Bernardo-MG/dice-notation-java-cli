@@ -75,6 +75,10 @@ public final class DiceRollCommand implements Runnable {
         super();
     }
 
+    public Boolean getHistory() {
+        return history;
+    }
+
     @Override
     public final void run() {
         final DiceParser parser;
