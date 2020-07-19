@@ -36,7 +36,7 @@ Roll history: [3, 5, 2] + 9
 A more detailed rolls history is available:
 
 ```
-java -jar dice.jar 3d6 -fullHistory
+java -jar dice.jar 3d6+1d12 -fullHistory
 ```
 
 ```
