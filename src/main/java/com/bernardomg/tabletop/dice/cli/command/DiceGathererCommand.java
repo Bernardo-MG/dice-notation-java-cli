@@ -16,6 +16,7 @@
 
 package com.bernardomg.tabletop.dice.cli.command;
 
+import java.io.PrintWriter;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -70,6 +71,7 @@ public final class DiceGathererCommand implements Runnable {
         final DiceInterpreter<Iterable<Dice>> gatherer;
         final Iterable<Dice> diceSets;
         final String diceText;
+        final PrintWriter writer;
 
         LOGGER.debug("Running expression {}", expression);
 
@@ -80,19 +82,20 @@ public final class DiceGathererCommand implements Runnable {
 
         LOGGER.debug("Gathered dice sets {}", diceSets);
 
+        writer = spec.commandLine().getOut();
+
         // Prints the final result
-        spec.commandLine().getOut().println();
-        spec.commandLine().getOut().println("------------");
-        spec.commandLine().getOut().printf("Found %d dice sets%n",
-                Iterables.size(diceSets));
+        writer.println();
+        writer.println("------------");
+        writer.printf("Found %d dice sets%n", Iterables.size(diceSets));
         diceText = StreamSupport.stream(diceSets.spliterator(), false)
                 .map(this::getText).collect(Collectors.joining(", "));
         if (!diceText.isEmpty()) {
-            spec.commandLine().getOut().println("------------");
-            spec.commandLine().getOut().println(diceText);
+            writer.println("------------");
+            writer.println(diceText);
         }
-        spec.commandLine().getOut().println("------------");
-        spec.commandLine().getOut().println();
+        writer.println("------------");
+        writer.println();
     }
 
     private final String getText(final Dice dice) {

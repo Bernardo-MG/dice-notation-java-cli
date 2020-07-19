@@ -16,6 +16,7 @@
 
 package com.bernardomg.tabletop.dice.cli.command;
 
+import java.io.PrintWriter;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -80,6 +81,7 @@ public final class DiceRollCommand implements Runnable {
         final DiceInterpreter<RollHistory> roller;
         final RollHistory rolls;
         final Integer totalRoll;
+        final PrintWriter writer;
         String valuesText;
 
         LOGGER.debug("Running expression {}", expression);
@@ -94,20 +96,21 @@ public final class DiceRollCommand implements Runnable {
         LOGGER.debug("Total roll {}", totalRoll);
         LOGGER.debug("History: {}", rolls.toString());
 
+        writer = spec.commandLine().getOut();
+
         // Prints the final result
-        spec.commandLine().getOut().println();
-        spec.commandLine().getOut().println("------------");
-        spec.commandLine().getOut().printf("Total roll: %d%n", totalRoll);
+        writer.println();
+        writer.println("------------");
+        writer.printf("Total roll: %d%n", totalRoll);
 
         if (history) {
-            spec.commandLine().getOut().println("------------");
-            spec.commandLine().getOut().printf("Roll history: %s%n",
-                    rolls.toString());
+            writer.println("------------");
+            writer.printf("Roll history: %s%n", rolls.toString());
         }
 
         if (historyDetailed) {
-            spec.commandLine().getOut().println("------------");
-            spec.commandLine().getOut().println("Detailed roll history");
+            writer.println("------------");
+            writer.println("Detailed roll history");
             for (final RollResult result : rolls.getRollResults()) {
                 // Values are grouped into a text
                 valuesText = StreamSupport
@@ -115,7 +118,7 @@ public final class DiceRollCommand implements Runnable {
                         .map(Object::toString)
                         .collect(Collectors.joining(", "));
 
-                spec.commandLine().getOut().printf(
+                writer.printf(
                         "Rolled %dd%d getting values [%s] for a total roll of %d%n",
                         result.getDice().getQuantity(),
                         result.getDice().getSides(), valuesText,
@@ -123,8 +126,8 @@ public final class DiceRollCommand implements Runnable {
             }
         }
 
-        spec.commandLine().getOut().println("------------");
-        spec.commandLine().getOut().println();
+        writer.println("------------");
+        writer.println();
     }
 
 }
