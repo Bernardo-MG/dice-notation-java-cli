@@ -104,11 +104,15 @@ public final class DiceRollCommand implements Runnable {
         writer.printf("Total roll: %d%n", totalRoll);
 
         if (history) {
+            LOGGER.debug("Printing roll history");
+
             writer.println("------------");
             writer.printf("Roll history: %s%n", rolls.toString());
         }
 
         if (historyDetailed) {
+            LOGGER.debug("Printing detailed roll history");
+
             writer.println("------------");
             writer.println("Detailed roll history");
             for (final RollResult result : rolls.getRollResults()) {

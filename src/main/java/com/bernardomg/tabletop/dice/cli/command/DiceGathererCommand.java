@@ -84,12 +84,14 @@ public final class DiceGathererCommand implements Runnable {
 
         writer = spec.commandLine().getOut();
 
+        // Builds the text
+        diceText = StreamSupport.stream(diceSets.spliterator(), false)
+                .map(this::getText).collect(Collectors.joining(", "));
+
         // Prints the final result
         writer.println();
         writer.println("------------");
         writer.printf("Found %d dice sets%n", Iterables.size(diceSets));
-        diceText = StreamSupport.stream(diceSets.spliterator(), false)
-                .map(this::getText).collect(Collectors.joining(", "));
         if (!diceText.isEmpty()) {
             writer.println("------------");
             writer.println(diceText);
