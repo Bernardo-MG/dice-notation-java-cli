@@ -31,8 +31,10 @@ import com.bernardomg.tabletop.dice.parser.DefaultDiceParser;
 import com.bernardomg.tabletop.dice.parser.DiceParser;
 
 import picocli.CommandLine.Command;
+import picocli.CommandLine.Model.CommandSpec;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
+import picocli.CommandLine.Spec;
 
 /**
  * Roll command. Receives an expression, rolls it and prints the result on
@@ -65,6 +67,9 @@ public final class DiceRollCommand implements Runnable {
             defaultValue = "false")
     private Boolean             historyDetailed;
 
+    @Spec
+    private CommandSpec         spec;
+
     public DiceRollCommand() {
         super();
     }
@@ -90,18 +95,19 @@ public final class DiceRollCommand implements Runnable {
         LOGGER.debug("History: {}", rolls.toString());
 
         // Prints the final result
-        System.out.println();
-        System.out.println("------------");
-        System.out.printf("Total roll: %d%n", totalRoll);
+        spec.commandLine().getOut().println();
+        spec.commandLine().getOut().println("------------");
+        spec.commandLine().getOut().printf("Total roll: %d%n", totalRoll);
 
         if (history) {
-            System.out.println("------------");
-            System.out.printf("Roll history: %s%n", rolls.toString());
+            spec.commandLine().getOut().println("------------");
+            spec.commandLine().getOut().printf("Roll history: %s%n",
+                    rolls.toString());
         }
 
         if (historyDetailed) {
-            System.out.println("------------");
-            System.out.println("Detailed roll history");
+            spec.commandLine().getOut().println("------------");
+            spec.commandLine().getOut().println("Detailed roll history");
             for (final RollResult result : rolls.getRollResults()) {
                 // Values are grouped into a text
                 valuesText = StreamSupport
@@ -109,7 +115,7 @@ public final class DiceRollCommand implements Runnable {
                         .map(Object::toString)
                         .collect(Collectors.joining(", "));
 
-                System.out.printf(
+                spec.commandLine().getOut().printf(
                         "Rolled %dd%d getting values [%s] for a total roll of %d%n",
                         result.getDice().getQuantity(),
                         result.getDice().getSides(), valuesText,
@@ -117,8 +123,8 @@ public final class DiceRollCommand implements Runnable {
             }
         }
 
-        System.out.println("------------");
-        System.out.println();
+        spec.commandLine().getOut().println("------------");
+        spec.commandLine().getOut().println();
     }
 
 }

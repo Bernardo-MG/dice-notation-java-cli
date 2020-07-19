@@ -27,6 +27,10 @@ import picocli.CommandLine.IVersionProvider;
 
 public class ManifestVersionProvider implements IVersionProvider {
 
+    private static Object get(final Attributes attributes, final String key) {
+        return attributes.get(new Attributes.Name(key));
+    }
+
     public ManifestVersionProvider() {
         super();
     }
@@ -57,10 +61,6 @@ public class ManifestVersionProvider implements IVersionProvider {
         final Attributes attributes = manifest.getMainAttributes();
         return "Dice Notation Tools CLI"
                 .equals(get(attributes, "Implementation-Title"));
-    }
-
-    private static Object get(final Attributes attributes, final String key) {
-        return attributes.get(new Attributes.Name(key));
     }
 
 }

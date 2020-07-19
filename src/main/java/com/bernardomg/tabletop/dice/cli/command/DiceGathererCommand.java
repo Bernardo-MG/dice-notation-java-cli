@@ -31,7 +31,9 @@ import com.bernardomg.tabletop.dice.parser.DiceParser;
 import com.google.common.collect.Iterables;
 
 import picocli.CommandLine.Command;
+import picocli.CommandLine.Model.CommandSpec;
 import picocli.CommandLine.Parameters;
+import picocli.CommandLine.Spec;
 
 /**
  * Dice gatherer command. Receives an expression, gets all the dice sets on it
@@ -55,6 +57,9 @@ public final class DiceGathererCommand implements Runnable {
             paramLabel = "EXP")
     private String              expression;
 
+    @Spec
+    private CommandSpec         spec;
+
     public DiceGathererCommand() {
         super();
     }
@@ -76,17 +81,18 @@ public final class DiceGathererCommand implements Runnable {
         LOGGER.debug("Gathered dice sets {}", diceSets);
 
         // Prints the final result
-        System.out.println();
-        System.out.println("------------");
-        System.out.printf("Found %d dice sets%n", Iterables.size(diceSets));
+        spec.commandLine().getOut().println();
+        spec.commandLine().getOut().println("------------");
+        spec.commandLine().getOut().printf("Found %d dice sets%n",
+                Iterables.size(diceSets));
         diceText = StreamSupport.stream(diceSets.spliterator(), false)
                 .map(this::getText).collect(Collectors.joining(", "));
         if (!diceText.isEmpty()) {
-            System.out.println("------------");
-            System.out.println(diceText);
+            spec.commandLine().getOut().println("------------");
+            spec.commandLine().getOut().println(diceText);
         }
-        System.out.println("------------");
-        System.out.println();
+        spec.commandLine().getOut().println("------------");
+        spec.commandLine().getOut().println();
     }
 
     private final String getText(final Dice dice) {

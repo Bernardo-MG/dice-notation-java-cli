@@ -36,10 +36,6 @@ public class Main {
      */
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
-    public Main() {
-        super();
-    }
-
     public static void main(final String[] args) {
         final Integer exitCode;
 
@@ -48,6 +44,10 @@ public class Main {
         LOGGER.debug("Exited with code {}", exitCode);
 
         System.exit(exitCode);
+    }
+
+    public Main() {
+        super();
     }
 
 }
