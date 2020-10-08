@@ -23,8 +23,7 @@ import com.bernardomg.tabletop.dice.cli.version.ManifestVersionProvider;
 import picocli.CommandLine.Command;
 
 /**
- * Roll command. Receives an expression, rolls it and prints the result on
- * screen.
+ * Dice roller menu.
  * 
  * @author Bernardo Martínez Garrido
  *
