@@ -18,7 +18,10 @@
                 Extended and improved CLI.
             </action>
         </release>
-        <release version="1.2.0" date="2020-07-19" description="">
+        <release version="1.1.1" date="2020-10-09" description="Small corrections">
+            <action dev="bmg" type="fix">
+                Several small corrections.
+            </action>
         </release>
     </body>
 </document>
