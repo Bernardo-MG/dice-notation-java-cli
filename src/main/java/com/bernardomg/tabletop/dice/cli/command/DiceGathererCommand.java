@@ -54,13 +54,22 @@ public final class DiceGathererCommand implements Runnable {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DiceGathererCommand.class);
 
+    /**
+     * Expression to roll.
+     */
     @Parameters(index = "0", description = "The expression to roll",
             paramLabel = "EXP")
     private String              expression;
 
+    /**
+     * Command specification. Used to get the line output.
+     */
     @Spec
     private CommandSpec         spec;
 
+    /**
+     * Default constructor.
+     */
     public DiceGathererCommand() {
         super();
     }
