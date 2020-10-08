@@ -35,4 +35,11 @@ import picocli.CommandLine.Command;
         versionProvider = ManifestVersionProvider.class)
 public class DiceMenu {
 
+    /**
+     * Default constructor.
+     */
+    public DiceMenu() {
+        super();
+    }
+
 }
