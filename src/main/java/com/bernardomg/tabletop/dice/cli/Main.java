@@ -19,7 +19,7 @@ package com.bernardomg.tabletop.dice.cli;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.bernardomg.tabletop.dice.cli.command.DiceMenu;
+import com.bernardomg.tabletop.dice.cli.menu.DiceMenu;
 
 import picocli.CommandLine;
 

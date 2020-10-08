@@ -14,8 +14,10 @@
  * the License.
  */
 
-package com.bernardomg.tabletop.dice.cli.command;
+package com.bernardomg.tabletop.dice.cli.menu;
 
+import com.bernardomg.tabletop.dice.cli.command.DiceGathererCommand;
+import com.bernardomg.tabletop.dice.cli.command.DiceRollCommand;
 import com.bernardomg.tabletop.dice.cli.version.ManifestVersionProvider;
 
 import picocli.CommandLine.Command;
