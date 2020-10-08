@@ -20,7 +20,7 @@
 
    <groupId>com.bernardomg.tabletop</groupId>
    <artifactId>dice-cli</artifactId>
-   <version>1.1.0</version>
+   <version>1.1.1</version>
    <packaging>jar</packaging>
 
    <name>Dice Notation Tools CLI</name>
@@ -30,8 +30,8 @@
 
    <licenses>
       <license>
-         <name>MIT License</name>
-         <url>http://www.opensource.org/licenses/mit-license.php</url>
+         <name>Apache v2 License</name>
+         <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
          <distribution>repo</distribution>
       </license>
    </licenses>
@@ -174,11 +174,11 @@
       <!-- ============================================== -->
       <!-- =========== DEPENDENCIES VERSIONS ============ -->
       <!-- ============================================== -->
-      <dice.version>2.0.2</dice.version>
+      <dice.version>2.0.4</dice.version>
       <guava.version>29.0-jre</guava.version>
       <junit.jupiter.version>5.6.2</junit.jupiter.version>
-      <mockito.version>3.3.3</mockito.version>
-      <picocli.version>4.4.0</picocli.version>
+      <mockito.version>3.5.13</mockito.version>
+      <picocli.version>4.5.1</picocli.version>
       <log4j.version>2.13.3</log4j.version>
       <slf4j.version>1.7.30</slf4j.version>
       <spring.boot.version>2.3.1.RELEASE</spring.boot.version>
@@ -403,8 +403,6 @@
             <configuration>
                <!-- The customized rules file -->
                <configLocation>${project.basedir}/src/config/checkstyle/checkstyle-rules.xml</configLocation>
-               <!-- Excludes generated code -->
-               <excludes>**/generated/**/*</excludes>
             </configuration>
          </plugin>
          <plugin>
@@ -412,22 +410,6 @@
             <!-- Checks for patterns which are prone to errors -->
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>findbugs-maven-plugin</artifactId>
-            <configuration>
-               <!-- Exclusion patterns -->
-               <excludeFilterFile>${project.basedir}/src/config/findbugs/findbugs-exclude.xml</excludeFilterFile>
-            </configuration>
-         </plugin>
-         <plugin>
-            <!-- Javadoc -->
-            <!-- Generates the javadocs -->
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-javadoc-plugin</artifactId>
-            <configuration>
-               <sourceFileExcludes>
-                  <!-- Excludes generated code -->
-                  <exclude>**/generated/**/*</exclude>
-               </sourceFileExcludes>
-            </configuration>
          </plugin>
          <plugin>
             <!-- PMD -->
@@ -439,10 +421,6 @@
                   <!-- The customized rules file -->
                   <ruleset>${project.basedir}/src/config/pmd/pmd-rules.xml</ruleset>
                </rulesets>
-               <excludes>
-                  <!-- Excludes generated code -->
-                  <exclude>**/generated/**/*</exclude>
-               </excludes>
             </configuration>
          </plugin>
       </plugins>

@@ -72,11 +72,11 @@ If you wish to fork or modify the code, visit the [GitHub project page][scm], wh
 The project has been released under the [MIT License][license].
 
 [issues]: https://github.com/bernardo-mg/dice-notation-java-cli/issues
-[javadoc-develop]: http://docs.bernardomg.com/development/maven/dice-notation-java-cli/apidocs
-[javadoc-release]: http://docs.bernardomg.com/maven/dice-notation-java-cli/apidocs
+[javadoc-develop]: https://docs.bernardomg.com/development/maven/dice-notation-java-cli/apidocs
+[javadoc-release]: https://docs.bernardomg.com/maven/dice-notation-java-cli/apidocs
 [license]: https://www.opensource.org/licenses/mit-license.php
 [scm]: https://github.com/bernardo-mg/dice-notation-java-cli
-[site-develop]: http://docs.bernardomg.com/development/maven/dice-notation-java-cli
-[site-release]: http://docs.bernardomg.com/maven/dice-notation-java-cli
+[site-develop]: https://docs.bernardomg.com/development/maven/dice-notation-java-cli
+[site-release]: https://docs.bernardomg.com/maven/dice-notation-java-cli
 
 [dice-notation-tools]: https://github.com/Bernardo-MG/dice-notation-java

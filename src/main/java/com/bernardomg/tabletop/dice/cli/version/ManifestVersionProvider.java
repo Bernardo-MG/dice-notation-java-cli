@@ -22,45 +22,105 @@ import java.util.Enumeration;
 import java.util.jar.Attributes;
 import java.util.jar.Manifest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import picocli.CommandLine;
 import picocli.CommandLine.IVersionProvider;
 
-public class ManifestVersionProvider implements IVersionProvider {
+/**
+ * Version provider based on the JAR manifest.
+ * 
+ * @author Bernardo Martínez Garrido
+ *
+ */
+public final class ManifestVersionProvider implements IVersionProvider {
 
-    private static Object get(final Attributes attributes, final String key) {
-        return attributes.get(new Attributes.Name(key));
-    }
+    /**
+     * Logger.
+     */
+    private static final Logger LOGGER  = LoggerFactory
+            .getLogger(ManifestVersionProvider.class);
+
+    /**
+     * Project title. Used to identify the correct manifest.
+     */
+    private static final String project = "Dice Notation Tools CLI";
 
     public ManifestVersionProvider() {
         super();
     }
 
     @Override
-    public String[] getVersion() throws Exception {
+    public final String[] getVersion() throws Exception {
         final Enumeration<URL> resources = CommandLine.class.getClassLoader()
                 .getResources("META-INF/MANIFEST.MF");
-        while (resources.hasMoreElements()) {
-            final URL url = resources.nextElement();
+        String[] result;
+        Boolean found;
+
+        result = new String[0];
+        found = false;
+        while ((!found) && (resources.hasMoreElements())) {
+            final URL url;
+            final Manifest manifest;
+            final Attributes attr;
+            final String version;
+            final String finalVersion;
+
+            url = resources.nextElement();
+
             try {
-                final Manifest manifest = new Manifest(url.openStream());
-                if (isApplicableManifest(manifest)) {
-                    final Attributes attr = manifest.getMainAttributes();
-                    return new String[] { get(attr, "Implementation-Title")
-                            + " version \""
-                            + get(attr, "Implementation-Version") + "\"" };
-                }
+                manifest = new Manifest(url.openStream());
             } catch (final IOException ex) {
-                return new String[] {
-                        "Unable to read from " + url + ": " + ex };
+                LOGGER.error("Unable to read from {}", url);
+                // TODO: Use detailed error
+                throw new RuntimeException();
+            }
+
+            if (isValid(manifest)) {
+                attr = manifest.getMainAttributes();
+
+                version = "%s version %s";
+                finalVersion = String.format(version,
+                        get(attr, "Implementation-Title"),
+                        get(attr, "Implementation-Version"));
+                result = new String[] { finalVersion };
+                found = true;
             }
         }
-        return new String[0];
+
+        return result;
     }
 
-    private boolean isApplicableManifest(final Manifest manifest) {
-        final Attributes attributes = manifest.getMainAttributes();
-        return "Dice Notation Tools CLI"
-                .equals(get(attributes, "Implementation-Title"));
+    /**
+     * Returns the value for the received key.
+     * 
+     * @param attributes
+     *            source to get the value
+     * @param key
+     *            key to search for
+     * @return value for the key
+     */
+    private final Object get(final Attributes attributes, final String key) {
+        return attributes.get(new Attributes.Name(key));
+    }
+
+    /**
+     * Checks if the manifest is the correct one.
+     * 
+     * @param manifest
+     *            manifest to check
+     * @return {@code true} if it is the expected manifest, {@code false} in
+     *         other case
+     */
+    private final Boolean isValid(final Manifest manifest) {
+        final Attributes attributes;
+        final Object title;
+
+        attributes = manifest.getMainAttributes();
+        title = get(attributes, "Implementation-Title");
+
+        return project.equals(title);
     }
 
 }
