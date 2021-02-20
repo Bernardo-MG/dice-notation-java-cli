@@ -406,12 +406,6 @@
             </configuration>
          </plugin>
          <plugin>
-            <!-- FindBugs -->
-            <!-- Checks for patterns which are prone to errors -->
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>findbugs-maven-plugin</artifactId>
-         </plugin>
-         <plugin>
             <!-- PMD -->
             <!-- Checks that the code complies with a series of code quality rules -->
             <groupId>org.apache.maven.plugins</groupId>
@@ -422,6 +416,12 @@
                   <ruleset>${project.basedir}/src/config/pmd/pmd-rules.xml</ruleset>
                </rulesets>
             </configuration>
+         </plugin>
+         <plugin>
+             <!-- SpotBugs -->
+             <!-- Checks for patterns which are prone to errors -->
+            <groupId>com.github.spotbugs</groupId>
+            <artifactId>spotbugs-maven-plugin</artifactId>
          </plugin>
       </plugins>
    </reporting>
