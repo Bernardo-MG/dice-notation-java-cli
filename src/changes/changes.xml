@@ -18,7 +18,10 @@
                 Extended and improved CLI.
             </action>
         </release>
-        <release version="1.2.0" date="2020-07-19" description="">
+        <release version="1.2.0" date="2021-02-20" description="Dropped JDK 8">
+         <action dev="bmg" type="update">
+            Removed support for JDK 8.
+         </action>
         </release>
     </body>
 </document>
