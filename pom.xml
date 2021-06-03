@@ -116,6 +116,18 @@
             <maven.test.skip>true</maven.test.skip>
          </properties>
       </profile>
+      <profile>
+         <!-- Github deployment profile. -->
+         <id>deployment-github</id>
+         <distributionManagement>
+            <repository>
+               <!-- Github repository -->
+               <id>github</id>
+               <name>GitHub Packages</name>
+               <url>https://maven.pkg.github.com/Bernardo-MG/dice-notation-java-cli</url>
+            </repository>
+         </distributionManagement>
+      </profile>
    </profiles>
 
    <!-- ********************************************** -->
