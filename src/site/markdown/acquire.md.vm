@@ -1,0 +1,7 @@
+#set( $symbol_pound = '#' )
+${symbol_pound} Setting up the dependencies
+
+The project files are hosted in the [Github Packages Repository][github-repo], from where it can be downloaded. Otherwise the project can be acquired from the [code repository][scm] and packaged.
+
+[scm]: ${scm.url}
+[github-repo]: ${githubArtifactURL}
