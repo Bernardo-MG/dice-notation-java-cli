@@ -11,7 +11,7 @@
    <parent>
       <groupId>com.bernardomg.maven</groupId>
       <artifactId>base-pom</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.2</version>
    </parent>
 
    <!-- ********************************************** -->
@@ -20,7 +20,7 @@
 
    <groupId>com.bernardomg.tabletop</groupId>
    <artifactId>dice-cli</artifactId>
-   <version>1.2.0</version>
+   <version>1.2.1</version>
    <packaging>jar</packaging>
 
    <name>Dice Notation Tools CLI</name>
@@ -57,21 +57,6 @@
       <url>https://github.com/Bernardo-MG/dice-notation-java-cli/actions</url>
       <notifiers />
    </ciManagement>
-
-   <distributionManagement>
-      <repository>
-         <uniqueVersion>false</uniqueVersion>
-         <id>releases</id>
-         <name>Releases Repository</name>
-         <url>https://api.bintray.com/maven/bernardo-mg/maven/dice-notation-java-cli</url>
-      </repository>
-      <snapshotRepository>
-         <uniqueVersion>false</uniqueVersion>
-         <id>snapshots</id>
-         <name>Snapshots Repository</name>
-         <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-      </snapshotRepository>
-   </distributionManagement>
 
    <!-- ********************************************** -->
    <!-- ****************** PROFILES ****************** -->
@@ -131,6 +116,18 @@
             <maven.test.skip>true</maven.test.skip>
          </properties>
       </profile>
+      <profile>
+         <!-- Github deployment profile. -->
+         <id>deployment-github</id>
+         <distributionManagement>
+            <repository>
+               <!-- Github repository -->
+               <id>github</id>
+               <name>GitHub Packages</name>
+               <url>https://maven.pkg.github.com/Bernardo-MG/dice-notation-java-cli</url>
+            </repository>
+         </distributionManagement>
+      </profile>
    </profiles>
 
    <!-- ********************************************** -->
@@ -174,12 +171,12 @@
       <!-- ============================================== -->
       <!-- =========== DEPENDENCIES VERSIONS ============ -->
       <!-- ============================================== -->
-      <dice.version>2.1.0</dice.version>
-      <guava.version>30.1-jre</guava.version>
+      <dice.version>2.1.2</dice.version>
+      <guava.version>30.1.1-jre</guava.version>
       <junit.jupiter.version>5.7.1</junit.jupiter.version>
-      <mockito.version>3.7.7</mockito.version>
+      <mockito.version>3.11.0</mockito.version>
       <picocli.version>4.6.1</picocli.version>
-      <log4j.version>2.14.0</log4j.version>
+      <log4j.version>2.14.1</log4j.version>
       <slf4j.version>1.7.30</slf4j.version>
       <spring.boot.version>2.4.3</spring.boot.version>
       <!-- ============================================== -->
@@ -189,7 +186,8 @@
       <!-- ============================================== -->
       <!-- ================= MAVEN SITE ================= -->
       <!-- ============================================== -->
-      <site.skin.version>2.0.11</site.skin.version>
+      <site.skin.version>2.2.0</site.skin.version>
+      <githubArtifactURL><![CDATA[https://github.com/Bernardo-MG?tab=packages&amp;repo_name=dice-notation-java-cli]]></githubArtifactURL>
       <!-- ============================================== -->
       <!-- ================= EXECUTABLE ================= -->
       <!-- ============================================== -->

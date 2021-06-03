@@ -8,7 +8,9 @@ To run the project first package it:
 mvn clean package
 ```
 
-Afterwards a runnable jar will be in the target folder. It can be run like this:
+Or download it from [Github Packages][github_package].
+
+In both cases the JAR will be a runnable Java file. It can be executed like this:
 
 ```
 java -jar target/dice.jar roll 1d6
@@ -71,6 +73,7 @@ If you wish to fork or modify the code, visit the [GitHub project page][scm], wh
 
 The project has been released under the [MIT License][license].
 
+[github_package]: https://github.com/Bernardo-MG?tab=packages&repo_name=dice-notation-java-cli
 [issues]: https://github.com/bernardo-mg/dice-notation-java-cli/issues
 [javadoc-develop]: https://docs.bernardomg.com/development/maven/dice-notation-java-cli/apidocs
 [javadoc-release]: https://docs.bernardomg.com/maven/dice-notation-java-cli/apidocs
