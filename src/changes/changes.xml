@@ -33,5 +33,13 @@
             Added deployment to Github packages.
          </action>
       </release>
+      <release version="1.2.2" date="2022-01-09" description="Updated dependencies">
+         <action dev="bmg" type="update">
+            Updated dependencies.
+         </action>
+         <action dev="bmg" type="update">
+            Updated CI files.
+         </action>
+      </release>
    </body>
 </document>

@@ -20,7 +20,7 @@
 
    <groupId>com.bernardomg.tabletop</groupId>
    <artifactId>dice-cli</artifactId>
-   <version>1.2.1</version>
+   <version>1.2.2</version>
    <packaging>jar</packaging>
 
    <name>Dice Notation Tools CLI</name>
@@ -171,14 +171,14 @@
       <!-- ============================================== -->
       <!-- =========== DEPENDENCIES VERSIONS ============ -->
       <!-- ============================================== -->
-      <dice.version>2.1.2</dice.version>
-      <guava.version>30.1.1-jre</guava.version>
-      <junit.jupiter.version>5.7.1</junit.jupiter.version>
-      <mockito.version>3.11.0</mockito.version>
-      <picocli.version>4.6.1</picocli.version>
-      <log4j.version>2.14.1</log4j.version>
+      <dice.version>2.2.1</dice.version>
+      <guava.version>31.0.1-jre</guava.version>
+      <junit.jupiter.version>5.8.2</junit.jupiter.version>
+      <mockito.version>4.2.0</mockito.version>
+      <picocli.version>4.6.2</picocli.version>
+      <log4j.version>2.17.1</log4j.version>
       <slf4j.version>1.7.30</slf4j.version>
-      <spring.boot.version>2.4.3</spring.boot.version>
+      <spring.boot.version>2.5.3</spring.boot.version>
       <!-- ============================================== -->
       <!-- ============== PLUGINS VERSIONS ============== -->
       <!-- ============================================== -->
@@ -186,7 +186,7 @@
       <!-- ============================================== -->
       <!-- ================= MAVEN SITE ================= -->
       <!-- ============================================== -->
-      <site.skin.version>2.2.0</site.skin.version>
+      <site.skin.version>2.2.5</site.skin.version>
       <githubArtifactURL><![CDATA[https://github.com/Bernardo-MG?tab=packages&amp;repo_name=dice-notation-java-cli]]></githubArtifactURL>
       <!-- ============================================== -->
       <!-- ================= EXECUTABLE ================= -->
