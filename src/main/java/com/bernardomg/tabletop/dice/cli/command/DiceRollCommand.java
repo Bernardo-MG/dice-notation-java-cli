@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 the original author or authors
+ * Copyright 2020-2022 the original author or authors
  * <p>
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -40,7 +40,7 @@ import picocli.CommandLine.Spec;
 /**
  * Roll command. Receives an expression, rolls it and prints the result on screen.
  *
- * @author Bernardo Martínez Garrido
+ * @author Bernardo Mart&iacute;nez Garrido
  *
  */
 @Command(name = "roll", description = "Rolls an expression", mixinStandardHelpOptions = true,
