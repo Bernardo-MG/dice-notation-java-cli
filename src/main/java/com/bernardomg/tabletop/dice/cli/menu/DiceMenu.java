@@ -24,14 +24,12 @@ import picocli.CommandLine.Command;
 
 /**
  * Dice roller menu.
- * 
+ *
  * @author Bernardo Martínez Garrido
  *
  */
-@Command(description = "Handles roll operations",
-        subcommands = { DiceRollCommand.class, DiceGathererCommand.class },
-        mixinStandardHelpOptions = true,
-        versionProvider = ManifestVersionProvider.class)
+@Command(description = "Handles roll operations", subcommands = { DiceRollCommand.class, DiceGathererCommand.class },
+        mixinStandardHelpOptions = true, versionProvider = ManifestVersionProvider.class)
 public class DiceMenu {
 
     /**

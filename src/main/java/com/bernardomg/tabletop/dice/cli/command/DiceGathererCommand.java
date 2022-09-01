@@ -37,28 +37,24 @@ import picocli.CommandLine.Parameters;
 import picocli.CommandLine.Spec;
 
 /**
- * Dice gatherer command. Receives an expression, gets all the dice sets on it
- * and prints the result on screen.
- * 
+ * Dice gatherer command. Receives an expression, gets all the dice sets on it and prints the result on screen.
+ *
  * @author Bernardo Martínez Garrido
  *
  */
-@Command(name = "gather", description = "Gathers dice from an expression",
-        mixinStandardHelpOptions = true,
+@Command(name = "gather", description = "Gathers dice from an expression", mixinStandardHelpOptions = true,
         versionProvider = ManifestVersionProvider.class)
 public final class DiceGathererCommand implements Runnable {
 
     /**
      * Logger.
      */
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(DiceGathererCommand.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DiceGathererCommand.class);
 
     /**
      * Expression to roll.
      */
-    @Parameters(index = "0", description = "The expression to roll",
-            paramLabel = "EXP")
+    @Parameters(index = "0", description = "The expression to roll", paramLabel = "EXP")
     private String              expression;
 
     /**
@@ -76,11 +72,11 @@ public final class DiceGathererCommand implements Runnable {
 
     @Override
     public final void run() {
-        final DiceParser parser;
+        final DiceParser                      parser;
         final DiceInterpreter<Iterable<Dice>> gatherer;
-        final Iterable<Dice> diceSets;
-        final String diceText;
-        final PrintWriter writer;
+        final Iterable<Dice>                  diceSets;
+        final String                          diceText;
+        final PrintWriter                     writer;
 
         LOGGER.debug("Running expression {}", expression);
 
@@ -91,11 +87,13 @@ public final class DiceGathererCommand implements Runnable {
 
         LOGGER.debug("Gathered dice sets {}", diceSets);
 
-        writer = spec.commandLine().getOut();
+        writer = spec.commandLine()
+            .getOut();
 
         // Builds the text
         diceText = StreamSupport.stream(diceSets.spliterator(), false)
-                .map(this::getText).collect(Collectors.joining(", "));
+            .map(this::getText)
+            .collect(Collectors.joining(", "));
 
         // Prints the final result
         writer.println();

@@ -38,43 +38,36 @@ import picocli.CommandLine.Parameters;
 import picocli.CommandLine.Spec;
 
 /**
- * Roll command. Receives an expression, rolls it and prints the result on
- * screen.
- * 
+ * Roll command. Receives an expression, rolls it and prints the result on screen.
+ *
  * @author Bernardo Martínez Garrido
  *
  */
-@Command(name = "roll", description = "Rolls an expression",
-        mixinStandardHelpOptions = true,
+@Command(name = "roll", description = "Rolls an expression", mixinStandardHelpOptions = true,
         versionProvider = ManifestVersionProvider.class)
 public final class DiceRollCommand implements Runnable {
 
     /**
      * Logger.
      */
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(DiceRollCommand.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DiceRollCommand.class);
 
     /**
      * Expression to roll.
      */
-    @Parameters(index = "0", description = "The expression to roll",
-            paramLabel = "EXP")
+    @Parameters(index = "0", description = "The expression to roll", paramLabel = "EXP")
     private String              expression;
 
     /**
      * Roll history flag.
      */
-    @Option(names = "-history", description = "Prints the roll history",
-            defaultValue = "false")
+    @Option(names = "-history", description = "Prints the roll history", defaultValue = "false")
     private Boolean             history;
 
     /**
      * Full history flag.
      */
-    @Option(names = "-fullHistory",
-            description = "Prints a detailed roll history",
-            defaultValue = "false")
+    @Option(names = "-fullHistory", description = "Prints a detailed roll history", defaultValue = "false")
     private Boolean             historyDetailed;
 
     /**
@@ -92,7 +85,7 @@ public final class DiceRollCommand implements Runnable {
 
     /**
      * Returns the history flag.
-     * 
+     *
      * @return the history flag
      */
     public Boolean getHistory() {
@@ -101,7 +94,7 @@ public final class DiceRollCommand implements Runnable {
 
     /**
      * Returns the detailed history flag.
-     * 
+     *
      * @return the detailed history flag
      */
     public Boolean getHistoryDetailed() {
@@ -110,12 +103,12 @@ public final class DiceRollCommand implements Runnable {
 
     @Override
     public final void run() {
-        final DiceParser parser;
+        final DiceParser                   parser;
         final DiceInterpreter<RollHistory> roller;
-        final RollHistory rolls;
-        final Integer totalRoll;
-        final PrintWriter writer;
-        String valuesText;
+        final RollHistory                  rolls;
+        final Integer                      totalRoll;
+        final PrintWriter                  writer;
+        String                             valuesText;
 
         LOGGER.debug("Running expression {}", expression);
 
@@ -129,7 +122,8 @@ public final class DiceRollCommand implements Runnable {
         LOGGER.debug("Total roll {}", totalRoll);
         LOGGER.debug("History: {}", rolls.toString());
 
-        writer = spec.commandLine().getOut();
+        writer = spec.commandLine()
+            .getOut();
 
         // Prints the final result
         writer.println();
@@ -150,16 +144,16 @@ public final class DiceRollCommand implements Runnable {
             writer.println("Detailed roll history");
             for (final RollResult result : rolls.getRollResults()) {
                 // Values are grouped into a text
-                valuesText = StreamSupport
-                        .stream(result.getAllRolls().spliterator(), false)
-                        .map(Object::toString)
-                        .collect(Collectors.joining(", "));
+                valuesText = StreamSupport.stream(result.getAllRolls()
+                    .spliterator(), false)
+                    .map(Object::toString)
+                    .collect(Collectors.joining(", "));
 
-                writer.printf(
-                        "Rolled %dd%d getting values [%s] for a total roll of %d%n",
-                        result.getDice().getQuantity(),
-                        result.getDice().getSides(), valuesText,
-                        result.getTotalRoll());
+                writer.printf("Rolled %dd%d getting values [%s] for a total roll of %d%n", result.getDice()
+                    .getQuantity(),
+                    result.getDice()
+                        .getSides(),
+                    valuesText, result.getTotalRoll());
             }
         }
 
