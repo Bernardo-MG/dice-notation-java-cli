@@ -11,7 +11,7 @@
    <parent>
       <groupId>com.bernardomg.maven</groupId>
       <artifactId>base-pom</artifactId>
-      <version>1.5.2</version>
+      <version>1.5.3</version>
    </parent>
 
    <!-- ********************************************** -->
@@ -136,9 +136,9 @@
       <!-- ============================================== -->
       <dice.version>2.2.1</dice.version>
       <guava.version>31.1-jre</guava.version>
-      <junit.jupiter.version>5.8.2</junit.jupiter.version>
-      <picocli.version>4.6.3</picocli.version>
-      <spring.boot.version>2.5.3</spring.boot.version>
+      <junit.jupiter.version>5.9.2</junit.jupiter.version>
+      <picocli.version>4.7.1</picocli.version>
+      <spring.boot.version>2.7.8</spring.boot.version>
       <!-- ============================================== -->
       <!-- ============== PLUGINS VERSIONS ============== -->
       <!-- ============================================== -->
@@ -153,7 +153,7 @@
       <!-- ============================================== -->
       <!-- ================= MAVEN SITE ================= -->
       <!-- ============================================== -->
-      <site.skin.version>2.2.6</site.skin.version>
+      <site.skin.version>2.3.1</site.skin.version>
       <githubArtifactURL><![CDATA[https://github.com/Bernardo-MG?tab=packages&amp;repo_name=dice-notation-java-cli]]></githubArtifactURL>
       <!-- ============================================== -->
       <!-- ================= EXECUTABLE ================= -->
