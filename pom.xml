@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
    <modelVersion>4.0.0</modelVersion>
 
@@ -154,7 +153,9 @@
       <!-- ================= MAVEN SITE ================= -->
       <!-- ============================================== -->
       <site.skin.version>2.3.1</site.skin.version>
-      <githubArtifactURL><![CDATA[https://github.com/Bernardo-MG?tab=packages&amp;repo_name=dice-notation-java-cli]]></githubArtifactURL>
+      <githubArtifactURL>
+         <![CDATA[https://github.com/Bernardo-MG?tab=packages&amp;repo_name=dice-notation-java-cli]]>
+      </githubArtifactURL>
       <!-- ============================================== -->
       <!-- ================= EXECUTABLE ================= -->
       <!-- ============================================== -->
@@ -205,6 +206,13 @@
          <groupId>com.bernardomg.tabletop</groupId>
          <artifactId>dice</artifactId>
          <version>${dice.version}</version>
+         <exclusions>
+            <exclusion>
+               <!-- SLF4J API -->
+               <groupId>org.slf4j</groupId>
+               <artifactId>slf4j-api</artifactId>
+            </exclusion>
+         </exclusions>
       </dependency>
       <!-- ============================================== -->
       <!-- ================== LOMBOK ==================== -->
