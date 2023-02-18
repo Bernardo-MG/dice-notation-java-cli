@@ -30,6 +30,7 @@ java -jar target/dice.jar -h
 
 ## Features
 
+- CLI for [Dice Notation Tools][dice-notation-tools]
 - Executable JAR
 
 ## Documentation
