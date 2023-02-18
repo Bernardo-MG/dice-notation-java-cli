@@ -137,12 +137,14 @@
       <dice.version>2.2.3</dice.version>
       <guava.version>31.1-jre</guava.version>
       <junit.jupiter.version>5.9.2</junit.jupiter.version>
+      <log4j.version>2.19.0</log4j.version>
+      <lombok.version>1.18.26</lombok.version>
       <picocli.version>4.7.1</picocli.version>
-      <spring.boot.version>2.7.8</spring.boot.version>
+      <slf4j.version>2.0.6</slf4j.version>
       <!-- ============================================== -->
       <!-- ============== PLUGINS VERSIONS ============== -->
       <!-- ============================================== -->
-      <plugin.spring.boot.version>${spring.boot.version}</plugin.spring.boot.version>
+      <plugin.shade.version>3.4.1</plugin.shade.version>
       <!-- ============================================== -->
       <!-- ============ PLUGIN CONFIGURATION ============ -->
       <!-- ============================================== -->
@@ -168,14 +170,6 @@
 
    <dependencyManagement>
       <dependencies>
-         <dependency>
-            <!-- Spring Boot Dependencies BOM -->
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-dependencies</artifactId>
-            <version>${spring.boot.version}</version>
-            <type>pom</type>
-            <scope>import</scope>
-         </dependency>
          <dependency>
             <!-- JUnit BOM -->
             <groupId>org.junit</groupId>
@@ -229,6 +223,7 @@
          <!-- Lombok -->
          <groupId>org.projectlombok</groupId>
          <artifactId>lombok</artifactId>
+         <version>${lombok.version}</version>
          <scope>provided</scope>
       </dependency>
       <!-- ============================================== -->
@@ -238,16 +233,19 @@
          <!-- SLF4J API -->
          <groupId>org.slf4j</groupId>
          <artifactId>slf4j-api</artifactId>
+         <version>${slf4j.version}</version>
       </dependency>
       <dependency>
          <!-- Log4j SLF4J Bridge -->
          <groupId>org.apache.logging.log4j</groupId>
-         <artifactId>log4j-slf4j-impl</artifactId>
+         <artifactId>log4j-slf4j2-impl</artifactId>
+         <version>${log4j.version}</version>
       </dependency>
       <dependency>
          <!-- Log4j core -->
          <groupId>org.apache.logging.log4j</groupId>
          <artifactId>log4j-core</artifactId>
+         <version>${log4j.version}</version>
       </dependency>
       <!-- ============================================== -->
       <!-- ======= TEST ENVIRONMENT DEPENDENCIES ======== -->
@@ -264,12 +262,6 @@
          <artifactId>junit-platform-runner</artifactId>
          <scope>test</scope>
       </dependency>
-      <dependency>
-         <!-- Mockito -->
-         <groupId>org.mockito</groupId>
-         <artifactId>mockito-core</artifactId>
-         <scope>test</scope>
-      </dependency>
    </dependencies>
 
    <!-- ********************************************** -->
@@ -281,10 +273,10 @@
       <pluginManagement>
          <plugins>
             <plugin>
-               <!-- Spring Boot -->
-               <groupId>org.springframework.boot</groupId>
-               <artifactId>spring-boot-maven-plugin</artifactId>
-               <version>${plugin.spring.boot.version}</version>
+               <!-- Shade -->
+               <groupId>org.apache.maven.plugins</groupId>
+               <artifactId>maven-shade-plugin</artifactId>
+               <version>${plugin.shade.version}</version>
             </plugin>
          </plugins>
       </pluginManagement>
@@ -332,6 +324,40 @@
             </configuration>
          </plugin>
          <plugin>
+            <!-- Shade -->
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-shade-plugin</artifactId>
+            <executions>
+               <execution>
+                  <goals>
+                     <goal>shade</goal>
+                  </goals>
+                  <configuration>
+                     <finalName>${exec.file.name}</finalName>
+                     <shadedArtifactAttached>true</shadedArtifactAttached>
+                     <transformers>
+                        <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                           <mainClass>${main.path}</mainClass>
+                           <manifestEntries>
+                              <Multi-Release>true</Multi-Release>
+                           </manifestEntries>
+                        </transformer>
+                     </transformers>
+                     <filters>
+                        <filter>
+                           <artifact>*:*</artifact>
+                           <excludes>
+                              <exclude>META-INF/*.SF</exclude>
+                              <exclude>META-INF/*.DSA</exclude>
+                              <exclude>META-INF/*.RSA</exclude>
+                           </excludes>
+                        </filter>
+                     </filters>
+                  </configuration>
+               </execution>
+            </executions>
+         </plugin>
+         <plugin>
             <!-- Site -->
             <!-- Generates the Maven Site -->
             <groupId>org.apache.maven.plugins</groupId>
@@ -344,40 +370,6 @@
                   <version>${site.skin.version}</version>
                </dependency>
             </dependencies>
-         </plugin>
-         <plugin>
-            <!-- Spring Boot -->
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-maven-plugin</artifactId>
-            <executions>
-               <execution>
-                  <goals>
-                     <goal>repackage</goal>
-                  </goals>
-                  <configuration>
-                     <classifier>spring-boot</classifier>
-                     <mainClass>${main.path}</mainClass>
-                  </configuration>
-               </execution>
-            </executions>
-         </plugin>
-         <plugin>
-            <!-- Antrun -->
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-antrun-plugin</artifactId>
-            <executions>
-               <execution>
-                  <phase>package</phase>
-                  <configuration>
-                     <target>
-                        <copy file="${project.build.directory}/${project.build.finalName}-spring-boot.jar" tofile="${project.build.directory}/${exec.file.name}.jar" />
-                     </target>
-                  </configuration>
-                  <goals>
-                     <goal>run</goal>
-                  </goals>
-               </execution>
-            </executions>
          </plugin>
       </plugins>
    </build>
