@@ -20,7 +20,7 @@ Total roll: 14
 To get all the rolls:
 
 ```
-java -jar dice.jar 3d6+1d12 -history
+java -jar dice.jar roll 3d6+1d12 -history
 ```
 
 This will print something like this:
@@ -36,7 +36,7 @@ Roll history: [3, 5, 2] + 9
 A more detailed rolls history is available:
 
 ```
-java -jar dice.jar 3d6+1d12 -fullHistory
+java -jar dice.jar roll 3d6+1d12 -fullHistory
 ```
 
 ```
