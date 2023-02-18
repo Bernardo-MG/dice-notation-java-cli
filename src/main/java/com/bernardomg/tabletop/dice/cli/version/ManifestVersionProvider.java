@@ -38,7 +38,7 @@ public final class ManifestVersionProvider implements IVersionProvider {
     /**
      * Project title. Used to identify the correct manifest.
      */
-    private static final String project = "Dice Notation Tools CLI";
+    private static final String PROJECT = "Dice Notation Tools CLI";
 
     /**
      * Default constructor.
@@ -114,7 +114,7 @@ public final class ManifestVersionProvider implements IVersionProvider {
         attributes = manifest.getMainAttributes();
         title = get(attributes, "Implementation-Title");
 
-        return project.equals(title);
+        return PROJECT.equals(title);
     }
 
 }
