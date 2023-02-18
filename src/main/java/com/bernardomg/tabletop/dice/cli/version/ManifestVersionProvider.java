@@ -22,6 +22,8 @@ import java.util.Enumeration;
 import java.util.jar.Attributes;
 import java.util.jar.Manifest;
 
+import com.google.common.base.Optional;
+
 import lombok.extern.slf4j.Slf4j;
 import picocli.CommandLine;
 import picocli.CommandLine.IVersionProvider;
@@ -36,9 +38,24 @@ import picocli.CommandLine.IVersionProvider;
 public final class ManifestVersionProvider implements IVersionProvider {
 
     /**
+     * Manifest implementation title key.
+     */
+    private static final Attributes.Name KEY_TITLE     = new Attributes.Name("Implementation-Title");
+
+    /**
+     * Manifest implementation vesion key.
+     */
+    private static final Attributes.Name KEY_VERSION   = new Attributes.Name("Implementation-Version");
+
+    /**
+     * Path to the manifest file.
+     */
+    private static final String          MANIFEST_PATH = "META-INF/MANIFEST.MF";
+
+    /**
      * Project title. Used to identify the correct manifest.
      */
-    private static final String PROJECT = "Dice Notation Tools CLI";
+    private static final String          PROJECT       = "Dice Notation Tools CLI";
 
     /**
      * Default constructor.
@@ -49,55 +66,97 @@ public final class ManifestVersionProvider implements IVersionProvider {
 
     @Override
     public final String[] getVersion() throws Exception {
-        final Enumeration<URL> resources = CommandLine.class.getClassLoader()
-            .getResources("META-INF/MANIFEST.MF");
-        String[]               result;
-        Boolean                found;
+        final Enumeration<URL> resources;
+        final String[]         result;
+        Optional<String>       version;
 
-        result = new String[0];
-        found = false;
-        while ((!found) && (resources.hasMoreElements())) {
-            final URL        url;
-            final Manifest   manifest;
-            final Attributes attr;
-            final String     version;
-            final String     finalVersion;
+        // Acquire URL to manifest file
+        resources = CommandLine.class.getClassLoader()
+            .getResources(MANIFEST_PATH);
 
-            url = resources.nextElement();
+        // Searches for version
+        version = Optional.absent();
+        while ((!version.isPresent()) && (resources.hasMoreElements())) {
+            final Optional<Manifest> manifest;
+            final Attributes         attr;
 
-            try {
-                manifest = new Manifest(url.openStream());
-            } catch (final IOException ex) {
-                log.error("Unable to read from {}", url);
-                // TODO: Use detailed error
-                throw new RuntimeException();
+            // Only a single manifest file should exist
+            // So this loop would be executed once
+
+            // Tries to acquire the manifest from the URL
+            manifest = getManifest(resources.nextElement());
+
+            if ((manifest.isPresent()) && (isValid(manifest.get()))) {
+                attr = manifest.get()
+                    .getMainAttributes();
+
+                version = Optional.of(getVersion(attr));
             }
+        }
 
-            if (isValid(manifest)) {
-                attr = manifest.getMainAttributes();
-
-                version = "%s version %s";
-                finalVersion = String.format(version, get(attr, "Implementation-Title"),
-                    get(attr, "Implementation-Version"));
-                result = new String[] { finalVersion };
-                found = true;
-            }
+        // Check if the version was found
+        // If so, it will be returned
+        if (version.isPresent()) {
+            result = new String[] { version.get() };
+        } else {
+            result = new String[0];
         }
 
         return result;
     }
 
     /**
-     * Returns the value for the received key.
+     * Returns the JAR manifest info structure.
      *
-     * @param attributes
-     *            source to get the value
-     * @param key
-     *            key to search for
-     * @return value for the key
+     * @param url
+     *            URL to the manifest file
+     * @return the manifest structure
      */
-    private final Object get(final Attributes attributes, final String key) {
-        return attributes.get(new Attributes.Name(key));
+    private final Optional<Manifest> getManifest(final URL url) {
+        final Manifest     manifest;
+        Optional<Manifest> result;
+
+        try {
+            manifest = new Manifest(url.openStream());
+            result = Optional.of(manifest);
+        } catch (final IOException ex) {
+            log.error("Unable to read from {}", url);
+            result = Optional.absent();
+        }
+
+        return result;
+    }
+
+    /**
+     * Returns the implementation version from the received attributes.
+     * <p>
+     * It will try to combine the implementation name and version in a string like:
+     * <p>
+     * {@code Implementation-Title version Implementation-Version}.
+     * <p>
+     * If the version is missing, then said part of the string will be also missing from the result.
+     *
+     * @param attr
+     *            attributes with the version
+     * @return the implementation version
+     */
+    private final String getVersion(final Attributes attr) {
+        final StringBuilder version;
+
+        version = new StringBuilder();
+
+        // Adds implementation title
+        version.append(attr.get(KEY_TITLE));
+        version.append(" ");
+
+        // Adds implementation version if it exists
+        if (attr.containsKey(KEY_VERSION)) {
+            version.append("version");
+            version.append(" ");
+            version.append(attr.get(KEY_VERSION));
+        }
+
+        return version.toString();
     }
 
     /**
@@ -110,11 +169,18 @@ public final class ManifestVersionProvider implements IVersionProvider {
     private final Boolean isValid(final Manifest manifest) {
         final Attributes attributes;
         final Object     title;
+        final Boolean    valid;
 
         attributes = manifest.getMainAttributes();
-        title = get(attributes, "Implementation-Title");
 
-        return PROJECT.equals(title);
+        if (attributes.containsKey(KEY_TITLE)) {
+            title = attributes.get(KEY_TITLE);
+            valid = PROJECT.equals(title);
+        } else {
+            valid = false;
+        }
+
+        return valid;
     }
 
 }
