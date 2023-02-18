@@ -30,7 +30,7 @@ java -jar target/dice.jar -h
 
 ## Features
 
-- Executable JAR using only Maven
+- Executable JAR
 
 ## Documentation
 
