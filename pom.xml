@@ -133,7 +133,7 @@
       <!-- ============================================== -->
       <!-- =========== DEPENDENCIES VERSIONS ============ -->
       <!-- ============================================== -->
-      <bernardomg.cli.maniferVersion>1.0.0</bernardomg.cli.maniferVersion>
+      <bernardomg.cli.manifestVersion>1.0.0</bernardomg.cli.manifestVersion>
       <dice.version>2.2.3</dice.version>
       <guava.version>31.1-jre</guava.version>
       <junit.jupiter.version>5.9.2</junit.jupiter.version>
@@ -214,7 +214,7 @@
          <!-- Manifest version provider -->
          <groupId>com.bernardomg.cli</groupId>
          <artifactId>picocli-manifest-version-provider</artifactId>
-         <version>${bernardomg.cli.maniferVersion}</version>
+         <version>${bernardomg.cli.manifestVersion}</version>
       </dependency>
       <!-- ============================================== -->
       <!-- ================== LOMBOK ==================== -->
