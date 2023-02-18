@@ -30,7 +30,8 @@ java -jar target/dice.jar -h
 
 ## Features
 
-- Executable JAR using only Maven
+- CLI for [Dice Notation Tools][dice-notation-tools]
+- Executable JAR
 
 ## Documentation
 

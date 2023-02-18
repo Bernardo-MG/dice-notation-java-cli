@@ -41,7 +41,7 @@
             Updated CI files.
          </action>
       </release>
-      <release version="1.2.3" date="2023-02-18" description="">
+      <release version="1.2.3" date="2023-02-18" description="Updated project">
          <action dev="bmg" type="fix">
             Fixed docs.
          </action>
@@ -50,6 +50,14 @@
          </action>
          <action dev="bmg" type="update">
             Updated dependencies.
+         </action>
+      </release>
+      <release version="1.2.4" date="2023-02-18" description="Removed Spring Boot">
+         <action dev="bmg" type="update">
+            No longer using Spring Boot for the executable jar.
+         </action>
+         <action dev="bmg" type="update">
+            Using a generic library for the version command.
          </action>
       </release>
    </body>

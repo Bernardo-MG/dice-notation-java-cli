@@ -19,11 +19,11 @@
    <Loggers>
       <!-- Application log -->
       <Logger name="com.bernardomg" level="error" additivity="false">
-         <AppenderRef ref="console" />
+         <AppenderRef ref="file" />
       </Logger>
 
       <Root level="error">
-         <AppenderRef ref="console" />
+         <AppenderRef ref="file" />
       </Root>
    </Loggers>
 
