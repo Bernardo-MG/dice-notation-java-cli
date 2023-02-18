@@ -133,6 +133,7 @@
       <!-- ============================================== -->
       <!-- =========== DEPENDENCIES VERSIONS ============ -->
       <!-- ============================================== -->
+      <bernardomg.cli.maniferVersion>1.0.0</bernardomg.cli.maniferVersion>
       <dice.version>2.2.3</dice.version>
       <guava.version>31.1-jre</guava.version>
       <junit.jupiter.version>5.9.2</junit.jupiter.version>
@@ -194,12 +195,6 @@
          <version>${guava.version}</version>
       </dependency>
       <dependency>
-         <!-- picocli -->
-         <groupId>info.picocli</groupId>
-         <artifactId>picocli</artifactId>
-         <version>${picocli.version}</version>
-      </dependency>
-      <dependency>
          <!-- Dice -->
          <groupId>com.bernardomg.tabletop</groupId>
          <artifactId>dice</artifactId>
@@ -211,6 +206,21 @@
                <artifactId>slf4j-api</artifactId>
             </exclusion>
          </exclusions>
+      </dependency>
+      <!-- ============================================== -->
+      <!-- ==================== CLI ===================== -->
+      <!-- ============================================== -->
+      <dependency>
+         <!-- picocli -->
+         <groupId>info.picocli</groupId>
+         <artifactId>picocli</artifactId>
+         <version>${picocli.version}</version>
+      </dependency>
+      <dependency>
+         <!-- Manifest version provider -->
+         <groupId>com.bernardomg.cli</groupId>
+         <artifactId>picocli-manifest-version-provider</artifactId>
+         <version>${bernardomg.cli.maniferVersion}</version>
       </dependency>
       <!-- ============================================== -->
       <!-- ================== LOMBOK ==================== -->
