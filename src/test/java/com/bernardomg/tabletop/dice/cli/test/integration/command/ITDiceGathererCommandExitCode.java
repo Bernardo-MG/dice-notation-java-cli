@@ -19,9 +19,9 @@ public class ITDiceGathererCommandExitCode {
     @Test
     @DisplayName("An invalid expression returns an error exit code")
     public final void testExecute_Invalid_ExitCode() {
-        final Runnable command;
+        final Runnable    command;
         final CommandLine cmd;
-        final Integer exitCode;
+        final Integer     exitCode;
 
         command = new DiceGathererCommand();
         cmd = new CommandLine(command);
@@ -34,9 +34,9 @@ public class ITDiceGathererCommandExitCode {
     @Test
     @DisplayName("A valid expression returns an OK exit code")
     public final void testExecute_Valid_ExitCode() {
-        final Runnable command;
+        final Runnable    command;
         final CommandLine cmd;
-        final Integer exitCode;
+        final Integer     exitCode;
 
         command = new DiceGathererCommand();
         cmd = new CommandLine(command);

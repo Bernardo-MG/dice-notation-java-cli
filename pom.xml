@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
    <modelVersion>4.0.0</modelVersion>
 
@@ -11,7 +10,7 @@
    <parent>
       <groupId>com.bernardomg.maven</groupId>
       <artifactId>base-pom</artifactId>
-      <version>1.4.2</version>
+      <version>1.5.3</version>
    </parent>
 
    <!-- ********************************************** -->
@@ -20,7 +19,7 @@
 
    <groupId>com.bernardomg.tabletop</groupId>
    <artifactId>dice-cli</artifactId>
-   <version>1.2.2</version>
+   <version>1.2.3</version>
    <packaging>jar</packaging>
 
    <name>Dice Notation Tools CLI</name>
@@ -63,17 +62,6 @@
    <!-- ********************************************** -->
 
    <profiles>
-      <profile>
-         <!-- Profile for the Eclipse Maven plugin -->
-         <!-- Sets the POM so this plugin does not give the usual unregistered goals errors -->
-         <!-- It will be activated automatically on Eclipse if this has the m2e plugin, by detecting the version property -->
-         <id>eclipse-maven</id>
-         <activation>
-            <property>
-               <name>m2e.version</name>
-            </property>
-         </activation>
-      </profile>
       <!-- ============================================== -->
       <!-- ============ DEPLOYMENT PROFILES ============= -->
       <!-- ============================================== -->
@@ -139,33 +127,33 @@
 
    <properties>
       <!-- ============================================== -->
-      <!-- ================ JAVA VERSION ================ -->
-      <!-- ============================================== -->
-      <java.version>11</java.version>
-      <!-- ============================================== -->
       <!-- =============== MANIFEST DATA ================ -->
       <!-- ============================================== -->
       <manifest.name>com/bernardomg/dice/cli</manifest.name>
       <!-- ============================================== -->
       <!-- =========== DEPENDENCIES VERSIONS ============ -->
       <!-- ============================================== -->
-      <dice.version>2.2.1</dice.version>
-      <guava.version>31.0.1-jre</guava.version>
-      <junit.jupiter.version>5.8.2</junit.jupiter.version>
-      <mockito.version>4.2.0</mockito.version>
-      <picocli.version>4.6.2</picocli.version>
-      <log4j.version>2.17.1</log4j.version>
-      <slf4j.version>1.7.30</slf4j.version>
-      <spring.boot.version>2.5.3</spring.boot.version>
+      <dice.version>2.2.3</dice.version>
+      <guava.version>31.1-jre</guava.version>
+      <junit.jupiter.version>5.9.2</junit.jupiter.version>
+      <picocli.version>4.7.1</picocli.version>
+      <spring.boot.version>2.7.8</spring.boot.version>
       <!-- ============================================== -->
       <!-- ============== PLUGINS VERSIONS ============== -->
       <!-- ============================================== -->
       <plugin.spring.boot.version>${spring.boot.version}</plugin.spring.boot.version>
       <!-- ============================================== -->
+      <!-- ============ PLUGIN CONFIGURATION ============ -->
+      <!-- ============================================== -->
+      <!-- Checkstyle customized rules file -->
+      <checkstyle.config.location>${project.basedir}/src/config/checkstyle/checkstyle-rules.xml</checkstyle.config.location>
+      <!-- ============================================== -->
       <!-- ================= MAVEN SITE ================= -->
       <!-- ============================================== -->
-      <site.skin.version>2.2.5</site.skin.version>
-      <githubArtifactURL><![CDATA[https://github.com/Bernardo-MG?tab=packages&amp;repo_name=dice-notation-java-cli]]></githubArtifactURL>
+      <site.skin.version>2.3.1</site.skin.version>
+      <githubArtifactURL>
+         <![CDATA[https://github.com/Bernardo-MG?tab=packages&amp;repo_name=dice-notation-java-cli]]>
+      </githubArtifactURL>
       <!-- ============================================== -->
       <!-- ================= EXECUTABLE ================= -->
       <!-- ============================================== -->
@@ -179,6 +167,14 @@
 
    <dependencyManagement>
       <dependencies>
+         <dependency>
+            <!-- Spring Boot Dependencies BOM -->
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-dependencies</artifactId>
+            <version>${spring.boot.version}</version>
+            <type>pom</type>
+            <scope>import</scope>
+         </dependency>
          <dependency>
             <!-- JUnit BOM -->
             <groupId>org.junit</groupId>
@@ -208,6 +204,22 @@
          <groupId>com.bernardomg.tabletop</groupId>
          <artifactId>dice</artifactId>
          <version>${dice.version}</version>
+         <exclusions>
+            <exclusion>
+               <!-- SLF4J API -->
+               <groupId>org.slf4j</groupId>
+               <artifactId>slf4j-api</artifactId>
+            </exclusion>
+         </exclusions>
+      </dependency>
+      <!-- ============================================== -->
+      <!-- ================== LOMBOK ==================== -->
+      <!-- ============================================== -->
+      <dependency>
+         <!-- Lombok -->
+         <groupId>org.projectlombok</groupId>
+         <artifactId>lombok</artifactId>
+         <scope>provided</scope>
       </dependency>
       <!-- ============================================== -->
       <!-- ================== LOGGERS =================== -->
@@ -216,19 +228,16 @@
          <!-- SLF4J API -->
          <groupId>org.slf4j</groupId>
          <artifactId>slf4j-api</artifactId>
-         <version>${slf4j.version}</version>
       </dependency>
       <dependency>
          <!-- Log4j SLF4J Bridge -->
          <groupId>org.apache.logging.log4j</groupId>
          <artifactId>log4j-slf4j-impl</artifactId>
-         <version>${log4j.version}</version>
       </dependency>
       <dependency>
          <!-- Log4j core -->
          <groupId>org.apache.logging.log4j</groupId>
          <artifactId>log4j-core</artifactId>
-         <version>${log4j.version}</version>
       </dependency>
       <!-- ============================================== -->
       <!-- ======= TEST ENVIRONMENT DEPENDENCIES ======== -->
@@ -249,7 +258,6 @@
          <!-- Mockito -->
          <groupId>org.mockito</groupId>
          <artifactId>mockito-core</artifactId>
-         <version>${mockito.version}</version>
          <scope>test</scope>
       </dependency>
    </dependencies>
@@ -371,17 +379,6 @@
    <reporting>
       <plugins>
          <plugin>
-            <!-- Checkstyle -->
-            <!-- Checks that the source files comply with style standards -->
-            <!-- It is using a customized rules file -->
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-checkstyle-plugin</artifactId>
-            <configuration>
-               <!-- The customized rules file -->
-               <configLocation>${project.basedir}/src/config/checkstyle/checkstyle-rules.xml</configLocation>
-            </configuration>
-         </plugin>
-         <plugin>
             <!-- PMD -->
             <!-- Checks that the code complies with a series of code quality rules -->
             <groupId>org.apache.maven.plugins</groupId>
@@ -392,12 +389,6 @@
                   <ruleset>${project.basedir}/src/config/pmd/pmd-rules.xml</ruleset>
                </rulesets>
             </configuration>
-         </plugin>
-         <plugin>
-             <!-- SpotBugs -->
-             <!-- Checks for patterns which are prone to errors -->
-            <groupId>com.github.spotbugs</groupId>
-            <artifactId>spotbugs-maven-plugin</artifactId>
          </plugin>
       </plugins>
    </reporting>

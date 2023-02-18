@@ -22,10 +22,10 @@ public class ITDiceRollCommandPrint {
     @Test
     @DisplayName("A valid expression prints the expected output")
     public final void testExecute() {
-        final Runnable command;
-        final CommandLine cmd;
+        final Runnable     command;
+        final CommandLine  cmd;
         final StringWriter sw;
-        final String expected;
+        final String       expected;
 
         command = new DiceRollCommand();
         cmd = new CommandLine(command);
@@ -36,17 +36,16 @@ public class ITDiceRollCommandPrint {
         cmd.execute("1d1");
 
         expected = "\n------------\nTotal roll: 1\n------------\n\n";
-        Assertions.assertEquals(expected.replaceAll("\\n|\\r\\n",
-                System.getProperty("line.separator")), sw.toString());
+        Assertions.assertEquals(expected.replaceAll("\\n|\\r\\n", System.lineSeparator()), sw.toString());
     }
 
     @Test
     @DisplayName("The rolls history is printed when the argument is received")
     public final void testExecute_History() {
-        final Runnable command;
-        final CommandLine cmd;
+        final Runnable     command;
+        final CommandLine  cmd;
         final StringWriter sw;
-        final String expected;
+        final String       expected;
 
         command = new DiceRollCommand();
         cmd = new CommandLine(command);
@@ -57,15 +56,14 @@ public class ITDiceRollCommandPrint {
         cmd.execute("1d1", "-history");
 
         expected = "\n------------\nTotal roll: 1\n------------\nRoll history: 1\n------------\n\n";
-        Assertions.assertEquals(expected.replaceAll("\\n|\\r\\n",
-                System.getProperty("line.separator")), sw.toString());
+        Assertions.assertEquals(expected.replaceAll("\\n|\\r\\n", System.lineSeparator()), sw.toString());
     }
 
     @Test
     @DisplayName("An invalid expression prints no output")
     public final void testExecute_Invalid() {
-        final Runnable command;
-        final CommandLine cmd;
+        final Runnable     command;
+        final CommandLine  cmd;
         final StringWriter sw;
 
         command = new DiceRollCommand();

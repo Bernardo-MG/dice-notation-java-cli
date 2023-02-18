@@ -23,8 +23,8 @@ public class ITDiceRollCommandHistory {
     @DisplayName("The rolls history is activated when the argument is received")
     public final void testExecute_History() {
         final DiceRollCommand command;
-        final CommandLine cmd;
-        final StringWriter sw;
+        final CommandLine     cmd;
+        final StringWriter    sw;
 
         command = new DiceRollCommand();
         cmd = new CommandLine(command);
@@ -41,8 +41,8 @@ public class ITDiceRollCommandHistory {
     @DisplayName("The detailed rolls history is activated when the argument is received")
     public final void testExecute_HistoryDetailed() {
         final DiceRollCommand command;
-        final CommandLine cmd;
-        final StringWriter sw;
+        final CommandLine     cmd;
+        final StringWriter    sw;
 
         command = new DiceRollCommand();
         cmd = new CommandLine(command);
@@ -59,8 +59,8 @@ public class ITDiceRollCommandHistory {
     @DisplayName("The rolls history is not activated when the argument isn't received")
     public final void testExecute_NoHistory() {
         final DiceRollCommand command;
-        final CommandLine cmd;
-        final StringWriter sw;
+        final CommandLine     cmd;
+        final StringWriter    sw;
 
         command = new DiceRollCommand();
         cmd = new CommandLine(command);
@@ -77,8 +77,8 @@ public class ITDiceRollCommandHistory {
     @DisplayName("The detailed rolls history is not activated when the argument isn't received")
     public final void testExecute_NoHistoryDetailed() {
         final DiceRollCommand command;
-        final CommandLine cmd;
-        final StringWriter sw;
+        final CommandLine     cmd;
+        final StringWriter    sw;
 
         command = new DiceRollCommand();
         cmd = new CommandLine(command);

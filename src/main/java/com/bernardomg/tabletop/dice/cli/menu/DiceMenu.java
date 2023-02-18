@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 the original author or authors
+ * Copyright 2020-2023 the original author or authors
  * <p>
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -24,14 +24,12 @@ import picocli.CommandLine.Command;
 
 /**
  * Dice roller menu.
- * 
- * @author Bernardo Martínez Garrido
+ *
+ * @author Bernardo Mart&iacute;nez Garrido
  *
  */
-@Command(description = "Handles roll operations",
-        subcommands = { DiceRollCommand.class, DiceGathererCommand.class },
-        mixinStandardHelpOptions = true,
-        versionProvider = ManifestVersionProvider.class)
+@Command(description = "Handles roll operations", subcommands = { DiceRollCommand.class, DiceGathererCommand.class },
+        mixinStandardHelpOptions = true, versionProvider = ManifestVersionProvider.class)
 public class DiceMenu {
 
     /**

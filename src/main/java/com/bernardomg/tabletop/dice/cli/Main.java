@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 the original author or authors
+ * Copyright 2020-2023 the original author or authors
  * <p>
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -16,32 +16,26 @@
 
 package com.bernardomg.tabletop.dice.cli;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.bernardomg.tabletop.dice.cli.menu.DiceMenu;
 
+import lombok.extern.slf4j.Slf4j;
 import picocli.CommandLine;
 
 /**
  * Main executable class.
- * 
- * @author Bernardo Martínez Garrido
+ *
+ * @author Bernardo Mart&iacute;nez Garrido
  *
  */
+@Slf4j
 public class Main {
-
-    /**
-     * Logger.
-     */
-    private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
     public static void main(final String[] args) {
         final Integer exitCode;
 
         exitCode = new CommandLine(new DiceMenu()).execute(args);
 
-        LOGGER.debug("Exited with code {}", exitCode);
+        log.debug("Exited with code {}", exitCode);
 
         System.exit(exitCode);
     }
