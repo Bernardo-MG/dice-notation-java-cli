@@ -20,9 +20,6 @@ import java.io.PrintWriter;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.bernardomg.tabletop.dice.cli.version.ManifestVersionProvider;
 import com.bernardomg.tabletop.dice.history.RollHistory;
 import com.bernardomg.tabletop.dice.history.RollResult;
@@ -31,6 +28,7 @@ import com.bernardomg.tabletop.dice.interpreter.DiceRoller;
 import com.bernardomg.tabletop.dice.parser.DefaultDiceParser;
 import com.bernardomg.tabletop.dice.parser.DiceParser;
 
+import lombok.extern.slf4j.Slf4j;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Model.CommandSpec;
 import picocli.CommandLine.Option;
@@ -45,36 +43,32 @@ import picocli.CommandLine.Spec;
  */
 @Command(name = "roll", description = "Rolls an expression", mixinStandardHelpOptions = true,
         versionProvider = ManifestVersionProvider.class)
+@Slf4j
 public final class DiceRollCommand implements Runnable {
-
-    /**
-     * Logger.
-     */
-    private static final Logger LOGGER = LoggerFactory.getLogger(DiceRollCommand.class);
 
     /**
      * Expression to roll.
      */
     @Parameters(index = "0", description = "The expression to roll", paramLabel = "EXP")
-    private String              expression;
+    private String      expression;
 
     /**
      * Roll history flag.
      */
     @Option(names = "-history", description = "Prints the roll history", defaultValue = "false")
-    private Boolean             history;
+    private Boolean     history;
 
     /**
      * Full history flag.
      */
     @Option(names = "-fullHistory", description = "Prints a detailed roll history", defaultValue = "false")
-    private Boolean             historyDetailed;
+    private Boolean     historyDetailed;
 
     /**
      * Command specification. Used to get the line output.
      */
     @Spec
-    private CommandSpec         spec;
+    private CommandSpec spec;
 
     /**
      * Default constructor.
@@ -110,7 +104,7 @@ public final class DiceRollCommand implements Runnable {
         final PrintWriter                  writer;
         String                             valuesText;
 
-        LOGGER.debug("Running expression {}", expression);
+        log.debug("Running expression {}", expression);
 
         parser = new DefaultDiceParser();
         roller = new DiceRoller();
@@ -119,8 +113,8 @@ public final class DiceRollCommand implements Runnable {
 
         totalRoll = rolls.getTotalRoll();
 
-        LOGGER.debug("Total roll {}", totalRoll);
-        LOGGER.debug("History: {}", rolls.toString());
+        log.debug("Total roll {}", totalRoll);
+        log.debug("History: {}", rolls.toString());
 
         writer = spec.commandLine()
             .getOut();
@@ -131,14 +125,14 @@ public final class DiceRollCommand implements Runnable {
         writer.printf("Total roll: %d%n", totalRoll);
 
         if (history) {
-            LOGGER.debug("Printing roll history");
+            log.debug("Printing roll history");
 
             writer.println("------------");
             writer.printf("Roll history: %s%n", rolls.toString());
         }
 
         if (historyDetailed) {
-            LOGGER.debug("Printing detailed roll history");
+            log.debug("Printing detailed roll history");
 
             writer.println("------------");
             writer.println("Detailed roll history");

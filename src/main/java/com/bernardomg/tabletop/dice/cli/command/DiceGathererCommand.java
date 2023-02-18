@@ -20,9 +20,6 @@ import java.io.PrintWriter;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.bernardomg.tabletop.dice.Dice;
 import com.bernardomg.tabletop.dice.cli.version.ManifestVersionProvider;
 import com.bernardomg.tabletop.dice.interpreter.DiceGatherer;
@@ -31,6 +28,7 @@ import com.bernardomg.tabletop.dice.parser.DefaultDiceParser;
 import com.bernardomg.tabletop.dice.parser.DiceParser;
 import com.google.common.collect.Iterables;
 
+import lombok.extern.slf4j.Slf4j;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Model.CommandSpec;
 import picocli.CommandLine.Parameters;
@@ -44,24 +42,20 @@ import picocli.CommandLine.Spec;
  */
 @Command(name = "gather", description = "Gathers dice from an expression", mixinStandardHelpOptions = true,
         versionProvider = ManifestVersionProvider.class)
+@Slf4j
 public final class DiceGathererCommand implements Runnable {
-
-    /**
-     * Logger.
-     */
-    private static final Logger LOGGER = LoggerFactory.getLogger(DiceGathererCommand.class);
 
     /**
      * Expression to roll.
      */
     @Parameters(index = "0", description = "The expression to roll", paramLabel = "EXP")
-    private String              expression;
+    private String      expression;
 
     /**
      * Command specification. Used to get the line output.
      */
     @Spec
-    private CommandSpec         spec;
+    private CommandSpec spec;
 
     /**
      * Default constructor.
@@ -78,14 +72,14 @@ public final class DiceGathererCommand implements Runnable {
         final String                          diceText;
         final PrintWriter                     writer;
 
-        LOGGER.debug("Running expression {}", expression);
+        log.debug("Running expression {}", expression);
 
         parser = new DefaultDiceParser();
         gatherer = new DiceGatherer();
 
         diceSets = parser.parse(expression, gatherer);
 
-        LOGGER.debug("Gathered dice sets {}", diceSets);
+        log.debug("Gathered dice sets {}", diceSets);
 
         writer = spec.commandLine()
             .getOut();

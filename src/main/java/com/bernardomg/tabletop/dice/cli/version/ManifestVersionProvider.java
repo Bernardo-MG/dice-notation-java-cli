@@ -22,9 +22,7 @@ import java.util.Enumeration;
 import java.util.jar.Attributes;
 import java.util.jar.Manifest;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import lombok.extern.slf4j.Slf4j;
 import picocli.CommandLine;
 import picocli.CommandLine.IVersionProvider;
 
@@ -34,12 +32,8 @@ import picocli.CommandLine.IVersionProvider;
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
+@Slf4j
 public final class ManifestVersionProvider implements IVersionProvider {
-
-    /**
-     * Logger.
-     */
-    private static final Logger LOGGER  = LoggerFactory.getLogger(ManifestVersionProvider.class);
 
     /**
      * Project title. Used to identify the correct manifest.
@@ -74,7 +68,7 @@ public final class ManifestVersionProvider implements IVersionProvider {
             try {
                 manifest = new Manifest(url.openStream());
             } catch (final IOException ex) {
-                LOGGER.error("Unable to read from {}", url);
+                log.error("Unable to read from {}", url);
                 // TODO: Use detailed error
                 throw new RuntimeException();
             }

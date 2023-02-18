@@ -16,11 +16,9 @@
 
 package com.bernardomg.tabletop.dice.cli;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.bernardomg.tabletop.dice.cli.menu.DiceMenu;
 
+import lombok.extern.slf4j.Slf4j;
 import picocli.CommandLine;
 
 /**
@@ -29,19 +27,15 @@ import picocli.CommandLine;
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
+@Slf4j
 public class Main {
-
-    /**
-     * Logger.
-     */
-    private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
     public static void main(final String[] args) {
         final Integer exitCode;
 
         exitCode = new CommandLine(new DiceMenu()).execute(args);
 
-        LOGGER.debug("Exited with code {}", exitCode);
+        log.debug("Exited with code {}", exitCode);
 
         System.exit(exitCode);
     }
