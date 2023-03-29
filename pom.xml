@@ -312,9 +312,7 @@
             <artifactId>maven-jar-plugin</artifactId>
             <configuration>
                <archive>
-                  <index>true</index>
                   <manifest>
-                     <addClasspath>true</addClasspath>
                      <mainClass>${main.path}</mainClass>
                   </manifest>
                </archive>
